@@ -20,6 +20,32 @@
     else document.addEventListener("DOMContentLoaded", fn);
   }
 
+  // Fades sections, card grids and images up into place as they scroll into
+  // view. The .js class (set synchronously in <head>, before paint) is what
+  // lets css/site.css hide .reveal elements at all -- so a browser that never
+  // runs this script also never hides content waiting on it.
+  function setupScrollReveal() {
+    var targets = document.querySelectorAll(".reveal, .reveal-stagger");
+    if (!targets.length) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      targets.forEach(function (el) { el.classList.add("is-visible"); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+    targets.forEach(function (el) { observer.observe(el); });
+  }
+
   function setupMobileNav() {
     var toggle = document.getElementById("nav-toggle");
     var menu = document.getElementById("mobile-menu");
@@ -135,6 +161,7 @@
   }
 
   onReady(function () {
+    setupScrollReveal();
     setupMobileNav();
     setupAccordion();
     setupTimeSlotChips();
