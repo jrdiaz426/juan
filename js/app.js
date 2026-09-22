@@ -25,7 +25,7 @@
   // lets css/site.css hide .reveal elements at all -- so a browser that never
   // runs this script also never hides content waiting on it.
   function setupScrollReveal() {
-    var targets = document.querySelectorAll(".reveal, .reveal-stagger");
+    var targets = document.querySelectorAll(".reveal, .reveal-slide, .reveal-stagger");
     if (!targets.length) return;
 
     var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -46,28 +46,52 @@
     targets.forEach(function (el) { observer.observe(el); });
   }
 
+  // Sliding drawer: the menu stays in the DOM (off-screen) so the slide-in
+  // can actually animate, with a tap-out backdrop, an explicit close
+  // button, and Escape, alongside the hamburger that opens it.
   function setupMobileNav() {
     var toggle = document.getElementById("nav-toggle");
     var menu = document.getElementById("mobile-menu");
+    var closeBtn = document.getElementById("mobile-menu-close");
+    var backdrop = document.getElementById("mobile-menu-backdrop");
     if (!toggle || !menu) return;
 
-    toggle.addEventListener("click", function () {
-      var isOpen = !menu.hasAttribute("hidden");
-      if (isOpen) {
-        menu.setAttribute("hidden", "");
-        toggle.setAttribute("aria-expanded", "false");
-      } else {
-        menu.removeAttribute("hidden");
-        toggle.setAttribute("aria-expanded", "true");
-      }
-    });
+    function openMenu() {
+      menu.classList.add("is-open");
+      if (backdrop) backdrop.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      menu.removeAttribute("aria-hidden");
+    }
+    function closeMenu() {
+      menu.classList.remove("is-open");
+      if (backdrop) backdrop.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      menu.setAttribute("aria-hidden", "true");
+    }
 
-    menu.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        menu.setAttribute("hidden", "");
-        toggle.setAttribute("aria-expanded", "false");
-      });
+    toggle.addEventListener("click", function () {
+      if (menu.classList.contains("is-open")) closeMenu(); else openMenu();
     });
+    if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+    if (backdrop) backdrop.addEventListener("click", closeMenu);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menu.classList.contains("is-open")) closeMenu();
+    });
+    menu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeMenu);
+    });
+  }
+
+  // Nav picks up a solid background + shadow once the page scrolls past
+  // the hero, so it reads as anchored rather than floating.
+  function setupNavScroll() {
+    var nav = document.getElementById("site-nav");
+    if (!nav) return;
+    function update() {
+      nav.classList.toggle("is-scrolled", window.scrollY > 24);
+    }
+    update();
+    window.addEventListener("scroll", update, { passive: true });
   }
 
   function setupAccordion() {
@@ -138,9 +162,16 @@
     });
   }
 
+  var CHECK_ICON =
+    '<svg class="confirm-check" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+    '<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>' +
+    '<path class="confirm-check-mark" d="M7.5 12.5l3 3 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '</svg>';
+
   // No backend on this static site: the booking and contact forms hand
   // the filled-in fields to the visitor's email client via a mailto:
   // link addressed to ccc@sundaysfold.com, instead of failing silently.
+  // A brief checkmark confirmation stands in for a real submit response.
   function setupMailtoForm(formId, buildSubjectAndBody) {
     var form = document.getElementById(formId);
     if (!form) return;
@@ -153,7 +184,8 @@
       var mailto = "mailto:ccc@sundaysfold.com?subject=" + encodeURIComponent(parts.subject) + "&body=" + encodeURIComponent(parts.body);
       var status = form.querySelector(".form-status");
       if (status) {
-        status.textContent = "Opening your email app to send this to us. Prefer to call? (323) 470-3462.";
+        status.classList.add("form-status--confirm");
+        status.innerHTML = CHECK_ICON + "<span>Opening your email app to send this to us. Prefer to call? (323) 470-3462.</span>";
         status.setAttribute("data-state", "ok");
       }
       window.location.href = mailto;
@@ -162,6 +194,7 @@
 
   onReady(function () {
     setupScrollReveal();
+    setupNavScroll();
     setupMobileNav();
     setupAccordion();
     setupTimeSlotChips();

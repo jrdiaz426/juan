@@ -58,7 +58,13 @@
     </div>
   </div>
 </header>
-<div class="mobile-menu" id="mobile-menu" hidden>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-header">
+    <span class="mobile-menu-title">Menu</span>
+    <button class="icon-btn" id="mobile-menu-close" aria-label="Close menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
   <a href="#how-it-works">How it works</a>
   <a href="#pricing">Pricing</a>
   <a href="#service-area">Service area</a>
@@ -66,6 +72,7 @@
   <a href="/contact.html">Contact</a>
   <a href="tel:+13234703462">(323) 470-3462</a>
 </div>
+<div class="mobile-menu-backdrop" id="mobile-menu-backdrop"></div>
 
 <main id="main">
 
@@ -128,6 +135,13 @@
     </div>
   </section>
 
+  <!-- Opening value banner -->
+  <div class="divider-banner-wrap">
+    <div class="img-frame divider-banner reveal">
+      <img src="/assets/img/community-banner.webp" alt="Neighbors and their dogs out enjoying the day together in the South Bay, with the words Laundry day made easy" width="1674" height="654" loading="lazy" fetchpriority="high">
+    </div>
+  </div>
+
   <!-- How it works -->
   <section class="section section--paper" id="how-it-works">
     <div class="container">
@@ -136,6 +150,10 @@
         <h2 class="heading-2">Three steps. No fine print.</h2>
         <p class="lead">Book online, leave your bag, get it back fresh. That's the whole process.</p>
       </div>
+      <div class="img-frame howitworks-visual reveal">
+        <img src="/assets/img/laundry-bag.webp" alt="A person relaxing on a bench with feet up next to a stack of folded laundry and a laundry bag" width="848" height="836" loading="lazy">
+      </div>
+      <p class="lead howitworks-caption reveal-slide">Spend your time on what matters. We&rsquo;ll handle the laundry.</p>
       <div class="grid grid--3 step-row reveal-stagger">
         <div class="card step-card">
           <div class="step-numeral">01</div>
@@ -257,12 +275,6 @@
     </div>
   </section>
 
-  <div class="divider-banner-wrap">
-    <div class="img-frame divider-banner reveal">
-      <img src="/assets/img/community-banner.webp" alt="Neighbors and their dogs out enjoying the day together in the South Bay" width="1674" height="654" loading="lazy">
-    </div>
-  </div>
-
   <!-- Service area -->
   <section class="section" id="service-area">
     <div class="container">
@@ -360,7 +372,7 @@
             <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           </button>
           <div class="accordion-panel" id="faq-1" data-open="true">
-            <p>We pick up and deliver in Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach, and El Segundo. Check your zip code above and we'll tell you right away.</p>
+            <div class="accordion-panel-inner"><p>We pick up and deliver in Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach, and El Segundo. Check your zip code above and we'll tell you right away.</p></div>
           </div>
         </div>
         <div class="accordion-item">
@@ -369,7 +381,7 @@
             <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           </button>
           <div class="accordion-panel" id="faq-2" data-open="false">
-            <p>Book a pickup window online. Leave your bag by the door — you don't need to be home. We text you when it's picked up and again when it's on its way back.</p>
+            <div class="accordion-panel-inner"><p>Book a pickup window online. Leave your bag by the door — you don't need to be home. We text you when it's picked up and again when it's on its way back.</p></div>
           </div>
         </div>
         <div class="accordion-item">
@@ -378,7 +390,7 @@
             <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           </button>
           <div class="accordion-panel" id="faq-3" data-open="false">
-            <p>24 hours for standard orders. If a load needs longer — bulky items or special care — we'll tell you before we start.</p>
+            <div class="accordion-panel-inner"><p>24 hours for standard orders. If a load needs longer — bulky items or special care — we'll tell you before we start.</p></div>
           </div>
         </div>
         <div class="accordion-item">
@@ -387,7 +399,7 @@
             <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           </button>
           <div class="accordion-panel" id="faq-4" data-open="false">
-            <p>$2.25 per pound, a $39 flat-rate family bag (up to 20 lbs), or an $89/month weekly subscription. No hidden fees.</p>
+            <div class="accordion-panel-inner"><p>$2.25 per pound, a $39 flat-rate family bag (up to 20 lbs), or an $89/month weekly subscription. No hidden fees.</p></div>
           </div>
         </div>
         <div class="accordion-item">
@@ -396,7 +408,7 @@
             <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           </button>
           <div class="accordion-panel" id="faq-5" data-open="false">
-            <p>Call or text us and we'll make it right. If we're running late, we'll let you know before you have to ask.</p>
+            <div class="accordion-panel-inner"><p>Call or text us and we'll make it right. If we're running late, we'll let you know before you have to ask.</p></div>
           </div>
         </div>
         <div class="accordion-item">
@@ -405,7 +417,7 @@
             <svg class="accordion-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           </button>
           <div class="accordion-panel" id="faq-6" data-open="false">
-            <p>Nope. Leave your bag by the door during your pickup window and we'll take it from there.</p>
+            <div class="accordion-panel-inner"><p>Nope. Leave your bag by the door during your pickup window and we'll take it from there.</p></div>
           </div>
         </div>
       </div>

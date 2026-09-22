@@ -6,6 +6,12 @@
 
 html { scroll-behavior: smooth; }
 
+/* Light crossfade between pages on same-origin navigations, where the
+   browser supports the View Transitions API. Unsupported browsers ignore
+   this at-rule entirely and navigate normally -- no JS, no fallback code
+   needed either way. */
+@view-transition { navigation: auto; }
+
 ul, ol { margin: 0; padding: 0; list-style: none; }
 img, svg { display: block; max-width: 100%; }
 button { font-family: inherit; }
@@ -48,17 +54,43 @@ button { font-family: inherit; }
   .nav-phone-icon { display: none; }
   .nav-toggle { display: none; }
 }
+/* Nav gains a solid background + soft shadow once the page scrolls, so it
+   reads as anchored rather than floating over content. */
+.nav { transition: box-shadow 0.25s ease, background-color 0.25s ease, height 0.25s ease; }
+.nav.is-scrolled { height: 48px; background: rgba(255, 255, 255, 0.98); box-shadow: 0 2px 10px rgba(31, 36, 48, 0.07); }
+
+/* Sliding mobile drawer: always in the DOM, off-screen (translateX) and
+   inert until opened, so the slide can actually animate (display:none
+   can't transition) while staying unreachable by keyboard/AT when closed. */
 .mobile-menu {
-  position: fixed; top: 56px; left: 0; right: 0; z-index: 49;
-  background: #fff; border-bottom: 1px solid var(--hairline-soft);
-  padding: 8px 16px 16px; display: flex; flex-direction: column;
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 60;
+  width: min(320px, 85vw);
+  background: #fff; box-shadow: -12px 0 32px rgba(31, 36, 48, 0.12);
+  padding: 16px; display: flex; flex-direction: column;
+  transform: translateX(100%); visibility: hidden;
+  transition: transform 0.3s ease, visibility 0s linear 0.3s;
 }
-.mobile-menu[hidden] { display: none; }
+.mobile-menu.is-open { transform: translateX(0); visibility: visible; transition: transform 0.3s ease; }
+.mobile-menu-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--hairline-soft);
+}
+.mobile-menu-title { font-size: 14px; font-weight: 600; color: var(--text-strong); }
 .mobile-menu a {
   padding: 12px 4px; font-size: 15px; color: var(--text-strong); text-decoration: none;
   border-bottom: 1px solid var(--hairline-faint);
 }
 .mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu-backdrop {
+  position: fixed; inset: 0; z-index: 55; background: rgba(31, 36, 48, 0.32);
+  opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+.mobile-menu-backdrop.is-open { opacity: 1; visibility: visible; transition: opacity 0.3s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav { transition: none; }
+  .mobile-menu, .mobile-menu-backdrop { transition: none !important; }
+}
 
 /* ---------- Hero ---------- */
 .hero { padding-top: 64px; padding-bottom: var(--space-section); background: #fff; }
@@ -181,9 +213,12 @@ button { font-family: inherit; }
 }
 .accordion-trigger .accordion-icon { flex: none; transition: transform 0.2s ease; }
 .accordion-trigger[aria-expanded="true"] .accordion-icon { transform: rotate(45deg); }
-.accordion-panel { overflow: hidden; max-height: 0; transition: max-height 0.2s ease; }
-.accordion-panel[data-open="true"] { max-height: 240px; }
-.accordion-panel p { padding: 0 4px 20px; margin: 0; font-size: 14px; line-height: 22.75px; color: rgba(255, 255, 255, 0.85); max-width: 640px; }
+/* Controlled expand/collapse that sizes to the actual content -- no
+   guessed max-height, no clipped long answers, no empty gap on short ones. */
+.accordion-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+.accordion-panel[data-open="true"] { grid-template-rows: 1fr; }
+.accordion-panel-inner { overflow: hidden; min-height: 0; }
+.accordion-panel-inner p { padding: 0 4px 20px; margin: 0; font-size: 14px; line-height: 22.75px; color: rgba(255, 255, 255, 0.85); max-width: 640px; }
 
 /* ---------- CTA band ---------- */
 .cta-band { text-align: center; }
@@ -236,6 +271,15 @@ button { font-family: inherit; }
 .contact-message-card { margin-top: 32px; }
 .form-status { margin-top: 12px; font-size: 14px; }
 .form-status[data-state="ok"] { color: var(--color-secondary); }
+.form-status--confirm {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg-paper); border: 1px solid var(--hairline-soft);
+  border-radius: var(--radius-sm); padding: 10px 12px; color: var(--text-strong);
+}
+.confirm-check { color: var(--color-secondary); flex: none; }
+.confirm-check-mark { stroke-dasharray: 20; stroke-dashoffset: 20; animation: draw-check 0.35s ease 0.1s forwards; }
+@keyframes draw-check { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .confirm-check-mark { animation: none; stroke-dashoffset: 0; } }
 
 /* ---------- Photography frames (Imagery spec: 12px radius, hairline-soft border) ---------- */
 .img-frame {
@@ -257,6 +301,10 @@ button { font-family: inherit; }
 
 .cta-visual { aspect-ratio: 1111 / 1154; max-width: 340px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
 .cta-visual img { padding: 8px; box-sizing: border-box; }
+
+.howitworks-visual { max-width: 320px; margin: 0 auto 20px; aspect-ratio: 848 / 836; display: flex; align-items: center; justify-content: center; }
+.howitworks-visual img { padding: 10px; box-sizing: border-box; }
+.howitworks-caption { text-align: center; margin: 0 auto 48px; }
 
 /* ---------- Page hero (non-home) ---------- */
 .page-hero { text-align: center; padding-bottom: 48px; }
@@ -280,11 +328,12 @@ button { font-family: inherit; }
 .step-card, .feature-card, .review-card, .pricing-card {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.step-card:hover, .feature-card:hover, .review-card:hover, .pricing-card:not(.card--featured):hover {
+.step-card:hover, .feature-card:hover, .review-card:hover, .pricing-card:not(.card--featured):hover,
+.step-card:focus-within, .feature-card:focus-within, .review-card:focus-within, .pricing-card:not(.card--featured):focus-within {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(31, 36, 48, 0.08);
 }
-.card--featured:hover { box-shadow: 0 12px 24px rgba(196, 83, 31, 0.16); }
+.card--featured:hover, .card--featured:focus-within { box-shadow: 0 12px 24px rgba(196, 83, 31, 0.16); }
 
 .btn { transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
 .btn-primary:hover, .btn-secondary:hover, .btn-outline:hover { transform: translateY(-1px); }
@@ -304,30 +353,45 @@ button { font-family: inherit; }
 .js .reveal {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Short slide-and-fade for supporting text/images (a lighter touch than
+   the major-section fade-rise above). */
+.js .reveal-slide {
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.js .reveal-slide.is-visible { opacity: 1; transform: none; }
 
 .js .reveal-stagger > * {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 .js .reveal-stagger.is-visible > * { opacity: 1; transform: none; }
-.js .reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0.05s; }
-.js .reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 0.12s; }
-.js .reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 0.19s; }
-.js .reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 0.26s; }
+.js .reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0.04s; }
+.js .reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 0.09s; }
+.js .reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 0.14s; }
+.js .reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 0.19s; }
+
+/* Frame reveal: the image's own border/shadow settle in a beat after the
+   fade, like a frame closing around the picture -- kept short and subtle. */
+.js .img-frame.reveal { transition: opacity 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease 0.1s; }
+.js .img-frame.reveal:not(.is-visible) { box-shadow: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .reveal, .js .reveal-stagger > *,
+  .js .reveal, .js .reveal-slide, .js .reveal-stagger > *,
   .card, .step-card, .feature-card, .review-card, .pricing-card,
-  .btn, .accordion-trigger, .nav-links a, .city-chip {
+  .btn, .accordion-trigger, .accordion-panel, .nav-links a, .city-chip, .img-frame.reveal {
     transition: none !important;
   }
-  .js .reveal, .js .reveal-stagger > * { opacity: 1; transform: none; }
+  .js .reveal, .js .reveal-slide, .js .reveal-stagger > * { opacity: 1; transform: none; }
   .step-card:hover, .feature-card:hover, .review-card:hover,
-  .pricing-card:hover, .btn-primary:hover, .btn-secondary:hover, .btn-outline:hover {
+  .pricing-card:hover, .btn-primary:hover, .btn-secondary:hover, .btn-outline:hover,
+  .step-card:focus-within, .feature-card:focus-within, .review-card:focus-within, .pricing-card:focus-within {
     transform: none;
   }
 }
