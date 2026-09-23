@@ -49,12 +49,12 @@
   --shadow-hero: 0 25px 50px -12px rgba(31, 36, 48, 0.25);
 
   /* Space */
-  --space-section: 80px;
+  --space-section: 72px;
   --container-max: 1280px;
   --lead-max: 672px;
 }
 
-@media (max-width: 1023px) { :root { --space-section: 56px; } }
+@media (max-width: 1023px) { :root { --space-section: 48px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -159,15 +159,23 @@ a { color: var(--color-secondary); text-decoration: underline; text-underline-of
   font: 400 14px/21px var(--font-sans); color: var(--text-strong);
   background: transparent; border: 1px solid var(--hairline); border-radius: var(--radius-sm);
 }
+select.input { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%234C5059' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
 textarea.input { height: auto; padding: 10px 12px; resize: vertical; }
 .input::placeholder { color: var(--text-secondary); }
-.input:focus { outline: none; border-color: rgba(47, 93, 138, 0.6); }
+/* A border-color change alone isn't a visible-enough focus indicator (WCAG 2.4.7) --
+   keep the border tweak but add a real focus ring around it. */
+.input:focus { outline: none; border-color: rgba(47, 93, 138, 0.6); box-shadow: 0 0 0 3px rgba(47, 93, 138, 0.18); }
+.input[aria-invalid="true"] { border-color: var(--color-primary); }
+.input[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px rgba(196, 83, 31, 0.18); }
 .chip {
   display: inline-flex; align-items: center; justify-content: center;
   height: 36px; padding: 0 14px; border-radius: var(--radius-full); border: 1px solid var(--hairline);
   background: #fff; font-size: 14px; color: var(--text-strong); cursor: pointer;
 }
 .chip[aria-pressed="true"] { background: var(--color-secondary); border-color: var(--color-secondary); color: #fff; }
+.chip:focus-visible, .accordion-trigger:focus-visible, .icon-btn:focus-visible, .nav-links a:focus-visible, .city-chip:focus-visible {
+  outline: 2px solid var(--color-secondary); outline-offset: 2px;
+}
 
 /* Nav */
 .nav {

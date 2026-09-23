@@ -6,6 +6,14 @@
 <title>Contact | Sunday's Fold — Laundry Pickup &amp; Delivery in the South Bay</title>
 <meta name="description" content="Book a laundry pickup or get in touch with Sunday's Fold, serving Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach and El Segundo.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="canonical" href="https://jrdiaz426.github.io/juan/contact.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sunday's Fold">
+<meta property="og:title" content="Contact Sunday's Fold — Book a Laundry Pickup">
+<meta property="og:description" content="Book a laundry pickup or get in touch with Sunday's Fold, serving Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach and El Segundo.">
+<meta property="og:url" content="https://jrdiaz426.github.io/juan/contact.html">
+<meta property="og:image" content="https://jrdiaz426.github.io/juan/assets/img/community-banner.webp">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/site.css">
 <script>document.documentElement.className += ' js';</script>
@@ -14,7 +22,7 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Sunday's Fold",
-  "url": "https://sundaysfold.com",
+  "url": "https://jrdiaz426.github.io/juan/",
   "email": "ccc@sundaysfold.com",
   "telephone": "+13234703462",
   "areaServed": [
@@ -135,15 +143,18 @@
           <form id="contact-form" novalidate>
             <div class="field-group">
               <label class="field-label" for="contact-name">Name</label>
-              <input class="input" id="contact-name" name="name" type="text" autocomplete="name" required>
+              <input class="input" id="contact-name" name="name" type="text" autocomplete="name" required aria-describedby="contact-name-error">
+              <p class="field-error" id="contact-name-error">Enter your name.</p>
             </div>
             <div class="field-group">
               <label class="field-label" for="contact-email">Email</label>
-              <input class="input" id="contact-email" name="email" type="email" autocomplete="email" required>
+              <input class="input" id="contact-email" name="email" type="email" autocomplete="email" required aria-describedby="contact-email-error">
+              <p class="field-error" id="contact-email-error">Enter a valid email address.</p>
             </div>
             <div class="field-group">
               <label class="field-label" for="contact-message">Message</label>
-              <textarea class="input" id="contact-message" name="message" rows="4" required></textarea>
+              <textarea class="input" id="contact-message" name="message" rows="4" required aria-describedby="contact-message-error"></textarea>
+              <p class="field-error" id="contact-message-error">Enter a message.</p>
             </div>
             <button class="btn btn-outline btn-block" type="submit">Send message</button>
             <p class="form-status caption" aria-live="polite"></p>
@@ -152,27 +163,73 @@
       </div>
 
       <div>
-        <div class="card card--panel booking-card reveal">
+        <div class="card card--panel booking-card reveal" id="book-form-card">
           <p class="title-lg booking-title" style="letter-spacing:-0.5px">Book a pickup</p>
-          <p class="body-sm booking-sub" style="color:var(--text-muted)">Takes about a minute. We'll confirm your window by text.</p>
+          <p class="body-sm booking-sub" style="color:var(--text-muted)">Takes about a minute. We'll be in touch to confirm.</p>
+
+          <div class="plan-carryover" id="plan-carryover" hidden>
+            <div>
+              <p class="plan-carryover-label">Selected plan</p>
+              <p class="plan-carryover-name" id="plan-carryover-name">&nbsp;</p>
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" id="plan-carryover-change">Change</button>
+          </div>
+
           <form id="booking-form" novalidate>
             <div class="field-group">
-              <label class="field-label" for="booking-address">Address</label>
-              <input class="input" id="booking-address" name="address" type="text" autocomplete="street-address" placeholder="123 Main St, Torrance" required>
+              <label class="field-label" for="booking-name">Full name</label>
+              <input class="input" id="booking-name" name="name" type="text" autocomplete="name" required aria-describedby="booking-name-error">
+              <p class="field-error" id="booking-name-error">Enter your full name.</p>
             </div>
             <div class="field-row">
-              <div>
-                <label class="field-label" for="booking-zip">Zip code</label>
-                <input class="input" id="booking-zip" name="zip" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="90501" required>
+              <div class="field-group">
+                <label class="field-label" for="booking-phone">Mobile phone</label>
+                <input class="input" id="booking-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(323) 555-0100" required aria-describedby="booking-phone-error">
+                <p class="field-error" id="booking-phone-error">Enter a mobile number so we can reach you.</p>
               </div>
-              <div>
-                <label class="field-label" for="booking-date">Pickup date</label>
-                <input class="input" id="booking-date" name="date" type="date" required>
+              <div class="field-group">
+                <label class="field-label" for="booking-email">Email address</label>
+                <input class="input" id="booking-email" name="email" type="email" autocomplete="email" required aria-describedby="booking-email-error">
+                <p class="field-error" id="booking-email-error">Enter a valid email address.</p>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label" for="booking-service">Service</label>
+                <select class="input" id="booking-service" name="service" required aria-describedby="booking-service-error">
+                  <option value="">Choose a plan</option>
+                  <option value="wash-fold" data-name="Wash &amp; Fold" data-price="$2.25 / lb">Wash &amp; Fold — $2.25/lb</option>
+                  <option value="family-bag" data-name="Family Bag" data-price="$39 / bag">Family Bag — $39/bag</option>
+                  <option value="weekly-subscription" data-name="Weekly Subscription" data-price="$89 / mo">Weekly Subscription — $89/mo</option>
+                </select>
+                <p class="field-error" id="booking-service-error">Choose a service.</p>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="booking-bags">Estimated bags</label>
+                <input class="input" id="booking-bags" name="bags" type="number" min="1" max="20" step="1" inputmode="numeric" placeholder="e.g. 2" required aria-describedby="booking-bags-error">
+                <p class="field-error" id="booking-bags-error">Estimate how many bags of laundry.</p>
               </div>
             </div>
             <div class="field-group">
-              <span class="field-label">Time window</span>
-              <div class="time-slot-group" role="group" aria-label="Choose a pickup time">
+              <label class="field-label" for="booking-address">Pickup address</label>
+              <input class="input" id="booking-address" name="address" type="text" autocomplete="street-address" placeholder="123 Main St, Torrance" required aria-describedby="booking-address-error">
+              <p class="field-error" id="booking-address-error">Enter your pickup address.</p>
+            </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label class="field-label" for="booking-zip">Zip code</label>
+                <input class="input" id="booking-zip" name="zip" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="90501" required aria-describedby="booking-zip-error">
+                <p class="field-error" id="booking-zip-error">Enter a 5-digit zip code.</p>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="booking-date">Pickup date</label>
+                <input class="input" id="booking-date" name="date" type="date" required aria-describedby="booking-date-error">
+                <p class="field-error" id="booking-date-error">Choose a pickup date.</p>
+              </div>
+            </div>
+            <div class="field-group">
+              <span class="field-label" id="booking-window-label">Time window</span>
+              <div class="time-slot-group" role="group" aria-labelledby="booking-window-label">
                 <button type="button" class="chip" aria-pressed="true">8–10 am</button>
                 <button type="button" class="chip" aria-pressed="false">10–12 pm</button>
                 <button type="button" class="chip" aria-pressed="false">12–2 pm</button>
@@ -183,10 +240,35 @@
               <label class="field-label" for="booking-preferences">Wash preferences (optional)</label>
               <textarea class="input" id="booking-preferences" name="preferences" rows="3" placeholder="Cold wash, no fabric softener, extra hangers — pick as many as you want."></textarea>
             </div>
+
+            <div class="consent-row">
+              <input type="checkbox" id="booking-consent" name="consent" required aria-describedby="booking-consent-error">
+              <label for="booking-consent">I'll leave my bag out during the selected pickup window, and I've read the <a href="terms.html">Terms of Service</a> and <a href="service-policy.html">Service Policy</a> (currently drafts pending final review).</label>
+            </div>
+            <p class="field-error" id="booking-consent-error" style="margin-top:-10px;">Please confirm before booking.</p>
+
             <button class="btn btn-primary btn-block" type="submit">Book pickup</button>
-            <p class="fine-print">By booking, you agree to leave your bag out during the selected window. We'll text if we're running late.</p>
+
+            <div class="dev-note" role="note">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9L2.5 17a1.5 1.5 0 0 0 1.3 2.2h16.4a1.5 1.5 0 0 0 1.3-2.2L13.7 3.9a1.5 1.5 0 0 0-2.6 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span><strong>Integration note:</strong> this form currently opens your email app with your booking details — it is not yet wired up to a real booking backend or database. No pickup is confirmed until Sunday's Fold actually receives and replies to that email. <em>Owner/developer: connect a real submission backend before launch.</em></span>
+            </div>
+
             <p class="form-status caption" aria-live="polite"></p>
           </form>
+
+          <div class="booking-summary" id="booking-summary" aria-live="polite">
+            <p class="title-lg" style="margin-bottom:4px;">What you submitted</p>
+            <dl class="booking-summary-list" id="booking-summary-list"></dl>
+            <div class="booking-summary-note">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <span>
+                <strong>Expected response time:</strong> not yet set by Sunday's Fold — we'll confirm a target reply time here once that's decided.<br>
+                <strong>Confirmation reference:</strong> not applicable — no booking backend is connected yet, so no reference number is generated.<br>
+                Questions in the meantime? Call or text <a href="tel:+13234703462">(323) 470-3462</a>.
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -217,7 +299,7 @@
       <ul>
         <li><a href="index.html#how-it-works">How it works</a></li>
         <li><a href="index.html#pricing">Pricing</a></li>
-        <li><a href="index.html#reviews">Reviews</a></li>
+        <li><a href="index.html#policies">Policies</a></li>
         <li><a href="index.html#faq">FAQ</a></li>
       </ul>
     </div>
@@ -245,7 +327,12 @@
   </div>
   <hr class="footer-rule">
   <div class="footer-bottom">
-    <p class="caption">&copy; Sunday&rsquo;s Fold &middot; sundaysfold.com</p>
+    <p class="caption">&copy; <span data-current-year>2026</span> Sunday&rsquo;s Fold</p>
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="service-policy.html">Service Policy</a>
+    </nav>
   </div>
 </footer>
 

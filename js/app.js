@@ -100,10 +100,25 @@
       trigger.addEventListener("click", function () {
         var panel = document.getElementById(trigger.getAttribute("aria-controls"));
         var isOpen = trigger.getAttribute("aria-expanded") === "true";
-        trigger.setAttribute("aria-expanded", String(!isOpen));
-        if (panel) panel.setAttribute("data-open", String(!isOpen));
+        var nowOpen = !isOpen;
+        trigger.setAttribute("aria-expanded", String(nowOpen));
+        if (panel) {
+          panel.setAttribute("data-open", String(nowOpen));
+          var inner = panel.querySelector(".accordion-panel-inner");
+          if (inner) inner.setAttribute("aria-hidden", String(!nowOpen));
+        }
       });
     });
+    // Match aria-hidden to each panel's initial data-open state on load.
+    document.querySelectorAll(".accordion-panel").forEach(function (panel) {
+      var inner = panel.querySelector(".accordion-panel-inner");
+      if (inner) inner.setAttribute("aria-hidden", String(panel.getAttribute("data-open") !== "true"));
+    });
+  }
+
+  function setupCopyrightYear() {
+    var year = String(new Date().getFullYear());
+    document.querySelectorAll("[data-current-year]").forEach(function (el) { el.textContent = year; });
   }
 
   function setupTimeSlotChips() {
@@ -168,15 +183,98 @@
     '<path class="confirm-check-mark" d="M7.5 12.5l3 3 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
     '</svg>';
 
-  // No backend on this static site: the booking and contact forms hand
-  // the filled-in fields to the visitor's email client via a mailto:
-  // link addressed to ccc@sundaysfold.com, instead of failing silently.
-  // A brief checkmark confirmation stands in for a real submit response.
-  function setupMailtoForm(formId, buildSubjectAndBody) {
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var PHONE_RE = /^[\d\s()+-]{7,}$/;
+
+  // Marks a single field valid/invalid: toggles aria-invalid on the input
+  // and .has-error on its wrapping .field-group, which is what shows/hides
+  // the field's .field-error message (see css/site.css).
+  function setFieldValid(input, isValid) {
+    var group = input.closest(".field-group") || input.closest(".consent-row");
+    input.setAttribute("aria-invalid", String(!isValid));
+    if (group) group.classList.toggle("has-error", !isValid);
+    return isValid;
+  }
+
+  // Runs each rule in order, marks every field's state, focuses the first
+  // invalid field, and returns whether the whole form passed.
+  function validateFields(rules) {
+    var firstInvalid = null;
+    var valid = true;
+    rules.forEach(function (rule) {
+      var ok = rule.test();
+      setFieldValid(rule.input, ok);
+      if (!ok) {
+        valid = false;
+        if (!firstInvalid) firstInvalid = rule.input;
+      }
+    });
+    if (firstInvalid) firstInvalid.focus();
+    return valid;
+  }
+
+  // Reads ?plan=<id> from the URL (set by the pricing-card "Book pickup"
+  // links on the homepage) and pre-selects + summarizes that plan on the
+  // booking form, without hiding the actual <select> -- the "Change"
+  // button just refocuses it, so the select stays the single source of
+  // truth for which plan is selected.
+  function setupPlanCarryover() {
+    var select = document.getElementById("booking-service");
+    var box = document.getElementById("plan-carryover");
+    var nameEl = document.getElementById("plan-carryover-name");
+    var changeBtn = document.getElementById("plan-carryover-change");
+    if (!select || !box || !nameEl) return;
+
+    function renderFromSelect() {
+      var opt = select.options[select.selectedIndex];
+      if (!opt || !opt.value) {
+        box.hidden = true;
+        return;
+      }
+      var price = opt.getAttribute("data-price");
+      nameEl.textContent = opt.getAttribute("data-name") + (price ? "" : "");
+      if (price) {
+        nameEl.innerHTML = opt.getAttribute("data-name") + ' <span class="plan-carryover-price">' + price + "</span>";
+      }
+      box.hidden = false;
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var plan = params.get("plan");
+    if (plan && select.querySelector('option[value="' + plan + '"]')) {
+      select.value = plan;
+      renderFromSelect();
+    }
+
+    select.addEventListener("change", renderFromSelect);
+    if (changeBtn) {
+      changeBtn.addEventListener("click", function () {
+        select.focus();
+      });
+    }
+  }
+
+  // No backend on this static site: the booking and contact forms hand the
+  // filled-in fields to the visitor's email client via a mailto: link,
+  // instead of failing silently -- see the visible .dev-note in the
+  // booking form for the explicit "no backend yet" disclosure. A brief
+  // checkmark confirmation acknowledges the email app opened; it never
+  // claims the booking itself is confirmed.
+  function setupMailtoForm(formId, buildSubjectAndBody, opts) {
     var form = document.getElementById(formId);
     if (!form) return;
+    opts = opts || {};
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      if (opts.validate && !opts.validate()) {
+        var status = form.querySelector(".form-status");
+        if (status) {
+          status.classList.remove("form-status--confirm");
+          status.textContent = "Please fix the highlighted field(s) below.";
+          status.setAttribute("data-state", "out");
+        }
+        return;
+      }
       var data = new FormData(form);
       var values = {};
       data.forEach(function (value, key) { values[key] = value; });
@@ -188,8 +286,136 @@
         status.innerHTML = CHECK_ICON + "<span>Opening your email app to send this to us. Prefer to call? (323) 470-3462.</span>";
         status.setAttribute("data-state", "ok");
       }
+      if (opts.onValid) opts.onValid(values);
       window.location.href = mailto;
     });
+  }
+
+  function setupBookingForm() {
+    var form = document.getElementById("booking-form");
+    if (!form) return;
+
+    var name = document.getElementById("booking-name");
+    var phone = document.getElementById("booking-phone");
+    var email = document.getElementById("booking-email");
+    var service = document.getElementById("booking-service");
+    var bags = document.getElementById("booking-bags");
+    var address = document.getElementById("booking-address");
+    var zip = document.getElementById("booking-zip");
+    var date = document.getElementById("booking-date");
+    var consent = document.getElementById("booking-consent");
+
+    var rules = [
+      { input: name, test: function () { return name.value.trim().length > 0; } },
+      { input: phone, test: function () { return PHONE_RE.test(phone.value.trim()); } },
+      { input: email, test: function () { return EMAIL_RE.test(email.value.trim()); } },
+      { input: service, test: function () { return service.value !== ""; } },
+      { input: bags, test: function () { return Number(bags.value) >= 1; } },
+      { input: address, test: function () { return address.value.trim().length > 0; } },
+      { input: zip, test: function () { return /^\d{5}$/.test(zip.value.trim()); } },
+      { input: date, test: function () { return date.value !== ""; } },
+      { input: consent, test: function () { return consent.checked; } }
+    ];
+
+    function validate() { return validateFields(rules); }
+
+    // Once a field has been flagged invalid, clear that one field's error
+    // as soon as it becomes valid again, rather than making the visitor
+    // re-submit the whole form to see it clear.
+    rules.forEach(function (rule) {
+      var evt = rule.input.type === "checkbox" || rule.input.tagName === "SELECT" ? "change" : "input";
+      rule.input.addEventListener(evt, function () {
+        var group = rule.input.closest(".field-group") || rule.input.closest(".consent-row");
+        if (group && group.classList.contains("has-error") && rule.test()) {
+          setFieldValid(rule.input, true);
+        }
+      });
+    });
+
+    function renderSummary(v) {
+      var slot = (document.querySelector("#booking-form .chip[aria-pressed='true']") || {}).textContent || "no time selected";
+      var serviceOpt = service.options[service.selectedIndex];
+      var serviceLabel = serviceOpt && serviceOpt.value ? serviceOpt.textContent : "Not selected";
+      var rows = [
+        ["Name", v.name],
+        ["Phone", v.phone],
+        ["Email", v.email],
+        ["Service", serviceLabel],
+        ["Estimated bags", v.bags],
+        ["Address", v.address],
+        ["Zip", v.zip],
+        ["Pickup date", v.date],
+        ["Time window", slot.trim()],
+        ["Preferences", v.preferences || "None given"]
+      ];
+      var list = document.getElementById("booking-summary-list");
+      var summary = document.getElementById("booking-summary");
+      if (!list || !summary) return;
+      list.innerHTML = rows.map(function (r) {
+        return "<div class=\"booking-summary-row\"><dt>" + r[0] + "</dt><dd>" + escapeHtml(String(r[1])) + "</dd></div>";
+      }).join("");
+      summary.classList.add("is-visible");
+    }
+
+    function escapeHtml(s) {
+      var div = document.createElement("div");
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
+    setupMailtoForm("booking-form", function (v) {
+      var slot = (document.querySelector("#booking-form .chip[aria-pressed='true']") || {}).textContent || "no time selected";
+      var serviceOpt = service.options[service.selectedIndex];
+      var serviceLabel = serviceOpt && serviceOpt.value ? serviceOpt.textContent : "Not selected";
+      return {
+        subject: "Pickup request — " + (v.name || "no name given"),
+        body:
+          "Name: " + (v.name || "") + "\n" +
+          "Phone: " + (v.phone || "") + "\n" +
+          "Email: " + (v.email || "") + "\n" +
+          "Service: " + serviceLabel + "\n" +
+          "Estimated bags: " + (v.bags || "") + "\n" +
+          "Address: " + (v.address || "") + "\n" +
+          "Zip: " + (v.zip || "") + "\n" +
+          "Preferred date: " + (v.date || "") + "\n" +
+          "Preferred time: " + slot.trim() + "\n" +
+          "Preferences / notes: " + (v.preferences || "none") + "\n"
+      };
+    }, { validate: validate, onValid: renderSummary });
+  }
+
+  function setupContactForm() {
+    var form = document.getElementById("contact-form");
+    if (!form) return;
+    var name = document.getElementById("contact-name");
+    var email = document.getElementById("contact-email");
+    var message = document.getElementById("contact-message");
+
+    var rules = [
+      { input: name, test: function () { return name.value.trim().length > 0; } },
+      { input: email, test: function () { return EMAIL_RE.test(email.value.trim()); } },
+      { input: message, test: function () { return message.value.trim().length > 0; } }
+    ];
+
+    function validate() { return validateFields(rules); }
+
+    rules.forEach(function (rule) {
+      rule.input.addEventListener("input", function () {
+        var group = rule.input.closest(".field-group");
+        if (group && group.classList.contains("has-error") && rule.test()) {
+          setFieldValid(rule.input, true);
+        }
+      });
+    });
+
+    setupMailtoForm("contact-form", function (v) {
+      return {
+        subject: "Message from " + (v.name || "the website"),
+        body:
+          "From: " + (v.name || "") + " (" + (v.email || "") + ")\n\n" +
+          (v.message || "")
+      };
+    }, { validate: validate });
   }
 
   onReady(function () {
@@ -200,27 +426,9 @@
     setupTimeSlotChips();
     setupZipCheckers();
     setupNotifyForms();
-
-    setupMailtoForm("booking-form", function (v) {
-      var slot = (document.querySelector("#booking-form .chip[aria-pressed='true']") || {}).textContent || "no time selected";
-      return {
-        subject: "Pickup request — " + (v.address || "no address given"),
-        body:
-          "Address: " + (v.address || "") + "\n" +
-          "Zip: " + (v.zip || "") + "\n" +
-          "Preferred date: " + (v.date || "") + "\n" +
-          "Preferred time: " + slot.trim() + "\n" +
-          "Preferences / notes: " + (v.preferences || "none") + "\n"
-      };
-    });
-
-    setupMailtoForm("contact-form", function (v) {
-      return {
-        subject: "Message from " + (v.name || "the website"),
-        body:
-          "From: " + (v.name || "") + " (" + (v.email || "") + ")\n\n" +
-          (v.message || "")
-      };
-    });
+    setupCopyrightYear();
+    setupPlanCarryover();
+    setupBookingForm();
+    setupContactForm();
   });
 })();

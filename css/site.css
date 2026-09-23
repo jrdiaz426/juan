@@ -36,8 +36,9 @@ button { font-family: inherit; }
 .logo--on-blue .logo-word { color: #fff; }
 
 /* Uploaded logo lockup — real aspect ratio preserved, height-constrained only */
-.logo-img { height: 32px; width: auto; display: block; }
-.footer-logo-img { height: 40px; width: auto; display: block; }
+.logo-img { height: 36px; width: auto; display: block; transition: height 0.25s ease; }
+.nav.is-scrolled .logo-img { height: 30px; }
+.footer-logo-img { height: 44px; width: auto; display: block; }
 
 /* ---------- Nav ---------- */
 .nav-inner { width: 100%; max-width: var(--container-max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
@@ -294,10 +295,12 @@ button { font-family: inherit; }
 .whyus-visual { max-width: 560px; margin: 0 auto 40px; aspect-ratio: 1254 / 836; display: flex; align-items: center; justify-content: center; }
 .whyus-visual img { padding: 12px; box-sizing: border-box; }
 
-.divider-banner-wrap { padding: 40px 16px; background: var(--color-white); }
-.divider-banner { max-width: var(--container-max); margin: 0 auto; aspect-ratio: 1674 / 620; display: flex; align-items: center; justify-content: center; }
+/* Kept short so it reads as a banner, not a full section customers have to
+   scroll past before reaching pricing/service info. */
+.divider-banner-wrap { padding: 24px 16px; background: var(--color-white); }
+.divider-banner { max-width: var(--container-max); margin: 0 auto; aspect-ratio: 1674 / 620; max-height: 280px; display: flex; align-items: center; justify-content: center; }
 .divider-banner img { padding: 12px; box-sizing: border-box; }
-@media (max-width: 767px) { .divider-banner { aspect-ratio: 4 / 5; } }
+@media (max-width: 767px) { .divider-banner { aspect-ratio: 4 / 5; max-height: 220px; } }
 
 .cta-visual { aspect-ratio: 1111 / 1154; max-width: 340px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
 .cta-visual img { padding: 8px; box-sizing: border-box; }
@@ -315,6 +318,15 @@ button { font-family: inherit; }
 @media (max-width: 640px) {
   .field-row { grid-template-columns: 1fr; }
   .hero { padding-top: 40px; }
+}
+
+/* ---------- Mobile touch targets (44px minimum) ---------- */
+@media (max-width: 767px) {
+  .btn, .btn-md, .btn-sm { min-height: 44px; }
+  .chip { min-height: 44px; }
+  .icon-btn { min-width: 44px; min-height: 44px; }
+  .icon-btn--menu { width: 44px; height: 44px; }
+  .nav { min-height: 56px; }
 }
 
 /* ---------- Motion: hover polish ---------- */
@@ -395,3 +407,90 @@ button { font-family: inherit; }
     transform: none;
   }
 }
+
+/* ---------- Owner-review flags ----------
+   Visually distinct from real marketing copy so it's obvious this note is
+   for the site owner, not a customer-facing claim. Reuses existing tokens
+   only (no new colors introduced). */
+.dev-note {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin: 16px 0 0; padding: 12px 14px;
+  background: var(--bg-cream); border: 1px dashed var(--primary-60);
+  border-radius: var(--radius-sm); font-size: 13px; line-height: 19px; color: var(--text-secondary);
+}
+.dev-note strong { color: var(--color-primary-hover); }
+.dev-note svg { flex: none; margin-top: 1px; color: var(--color-primary); }
+
+.owner-flag-banner {
+  display: flex; gap: 12px; align-items: flex-start;
+  margin-bottom: 32px; padding: 16px 20px;
+  background: var(--bg-cream); border: 1px dashed var(--primary-60);
+  border-radius: var(--radius-md);
+}
+.owner-flag-banner svg { flex: none; margin-top: 2px; color: var(--color-primary); }
+.owner-flag-banner p { margin: 0; }
+.owner-flag-banner .title-sm { color: var(--color-primary-hover); margin-bottom: 4px; }
+
+/* ---------- Trust & service-policy grid ---------- */
+.policy-grid { max-width: 960px; margin: 0 auto; }
+.policy-item .card-title { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.policy-item--pending { border-style: dashed; border-color: var(--primary-60); background: var(--bg-cream); }
+.policy-item--pending .card-title::after {
+  content: "Needs owner input"; font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+  color: var(--color-primary-hover); background: #fff; border: 1px solid var(--primary-60);
+  border-radius: var(--radius-full); padding: 2px 8px; margin-left: auto;
+}
+
+/* ---------- New-to-area (reviews replacement) ---------- */
+.new-to-area-card { max-width: 640px; margin: 0 auto; text-align: center; }
+.new-to-area-card .icon-tile { margin: 0 auto 16px; }
+
+/* ---------- Booking form: service/plan carryover ---------- */
+.plan-carryover {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 16px; padding: 12px 14px;
+  background: var(--bg-paper); border: 1px solid var(--hairline-soft); border-radius: var(--radius-sm);
+}
+.plan-carryover-label { font-size: 12px; color: var(--text-muted); margin: 0 0 2px; }
+.plan-carryover-name { font-size: 15px; font-weight: 600; color: var(--text-strong); margin: 0; }
+.plan-carryover-price { color: var(--text-secondary); font-weight: 400; }
+
+/* ---------- Booking form: consent + validation ---------- */
+.consent-row { display: flex; gap: 10px; align-items: flex-start; margin: 16px 0; }
+.consent-row input[type="checkbox"] { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: var(--color-secondary); }
+.consent-row label { font-size: 13px; line-height: 19px; color: var(--text-secondary); }
+.consent-row a { color: var(--text-secondary); }
+.field-error {
+  display: none; margin-top: 6px; font-size: 12.5px; line-height: 17px; color: var(--color-primary-hover);
+}
+.field-group.has-error .field-error,
+.consent-row.has-error + .field-error { display: block; }
+.field-group.has-error .input { border-color: var(--color-primary); }
+.consent-row.has-error label { color: var(--color-primary-hover); }
+
+/* ---------- Post-submission summary ---------- */
+.booking-summary { display: none; }
+.booking-summary.is-visible { display: block; }
+.booking-summary-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; padding: 14px; background: var(--bg-paper); border-radius: var(--radius-sm); }
+.booking-summary-row { display: flex; justify-content: space-between; gap: 16px; font-size: 13.5px; line-height: 19px; }
+.booking-summary-row dt { color: var(--text-muted); flex: none; }
+.booking-summary-row dd { margin: 0; text-align: right; color: var(--text-strong); }
+.booking-summary-note { display: flex; gap: 10px; margin-top: 12px; padding: 12px 14px; background: var(--secondary-20); border-radius: var(--radius-sm); font-size: 13px; line-height: 19px; color: var(--text-strong); }
+.booking-summary-note svg { flex: none; margin-top: 1px; color: var(--color-secondary); }
+
+/* ---------- Footer legal links ---------- */
+.footer-legal { display: flex; gap: 8px 16px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+.footer-legal a { font-size: 12px; color: var(--text-muted); text-decoration: none; }
+.footer-legal a:hover { color: var(--text-strong); text-decoration: underline; }
+
+/* ---------- Draft legal page ---------- */
+.draft-page-banner {
+  display: flex; gap: 12px; align-items: flex-start; margin-bottom: 40px;
+  padding: 16px 20px; background: var(--bg-cream); border: 1px dashed var(--primary-60); border-radius: var(--radius-md);
+}
+.draft-page-banner svg { flex: none; margin-top: 2px; color: var(--color-primary); }
+.draft-page-content { max-width: 720px; margin: 0 auto; }
+.draft-page-content h2 { font-size: 22px; line-height: 28px; margin: 32px 0 12px; }
+.draft-page-content p { color: var(--text-secondary); line-height: 24px; margin: 0 0 16px; }
+.draft-page-content ul { list-style: disc; }
+.draft-page-content li { margin-bottom: 8px; }

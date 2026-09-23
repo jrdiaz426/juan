@@ -6,6 +6,17 @@
 <title>Home | Sunday's Fold — Laundry Pickup &amp; Delivery in the South Bay</title>
 <meta name="description" content="Laundry pickup &amp; delivery, plus wash, dry &amp; fold, in Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach and El Segundo. Fresh, folded, and back in 24 hours.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
+<!-- Canonical points at the current live site. If a custom domain (e.g.
+     sundaysfold.com) is set up later, this and the JSON-LD url below should
+     be updated to match -- owner to confirm. -->
+<link rel="canonical" href="https://jrdiaz426.github.io/juan/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sunday's Fold">
+<meta property="og:title" content="Sunday's Fold — Laundry Pickup & Delivery in the South Bay">
+<meta property="og:description" content="Laundry pickup & delivery, plus wash, dry & fold, in Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach and El Segundo.">
+<meta property="og:url" content="https://jrdiaz426.github.io/juan/">
+<meta property="og:image" content="https://jrdiaz426.github.io/juan/assets/img/community-banner.webp">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/site.css">
 <script>document.documentElement.className += ' js';</script>
@@ -14,7 +25,7 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Sunday's Fold",
-  "url": "https://sundaysfold.com",
+  "url": "https://jrdiaz426.github.io/juan/",
   "email": "ccc@sundaysfold.com",
   "telephone": "+13234703462",
   "areaServed": [
@@ -188,7 +199,7 @@
     <div class="container">
       <div class="section-header reveal">
         <span class="pill"><span class="dot" aria-hidden="true"></span>Pricing</span>
-        <h2 class="heading-2">Clear prices. Pick as many as you want.</h2>
+        <h2 class="heading-2">Simple pricing for every household.</h2>
         <p class="lead">No hidden fees, no minimums you weren't told about. Cancel a pickup any time before it's picked up.</p>
       </div>
       <div class="grid grid--3 pricing-grid reveal-stagger">
@@ -201,7 +212,7 @@
             <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Free pickup &amp; delivery</li>
             <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>24-hour turnaround</li>
           </ul>
-          <a class="btn btn-outline btn-block" href="contact.html#book">Book pickup</a>
+          <a class="btn btn-outline btn-block" href="contact.html?plan=wash-fold#book">Book pickup</a>
         </div>
         <div class="card card--featured pricing-card">
           <span class="badge badge-primary">Most popular</span>
@@ -214,7 +225,7 @@
             <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>24-hour turnaround</li>
             <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Set your wash preferences once</li>
           </ul>
-          <a class="btn btn-primary btn-md btn-block" href="contact.html#book">Book pickup</a>
+          <a class="btn btn-primary btn-md btn-block" href="contact.html?plan=family-bag#book">Book pickup</a>
         </div>
         <div class="card pricing-card">
           <p class="title-lg">Weekly Subscription</p>
@@ -225,8 +236,12 @@
             <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority scheduling</li>
             <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Pause or cancel any time</li>
           </ul>
-          <a class="btn btn-outline btn-block" href="contact.html#book">Book pickup</a>
+          <a class="btn btn-outline btn-block" href="contact.html?plan=weekly-subscription#book">Book pickup</a>
         </div>
+      </div>
+      <div class="dev-note" style="max-width:1024px;margin-left:auto;margin-right:auto;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9L2.5 17a1.5 1.5 0 0 0 1.3 2.2h16.4a1.5 1.5 0 0 0 1.3-2.2L13.7 3.9a1.5 1.5 0 0 0-2.6 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><strong>For owner review:</strong> the $89/mo Weekly Subscription (up to 25 lbs/pickup, weekly) works out to roughly 100&ndash;125 lbs/month for $89, versus about $225&ndash;$281 at the $2.25/lb Wash &amp; Fold rate. Please confirm this margin is intended before this plan is promoted further.</span>
       </div>
     </div>
   </section>
@@ -248,14 +263,14 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 12l3-7h12l3 7M3 12v7a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-7M3 12h18" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
           </div>
           <h3 class="card-title">Free pickup &amp; delivery</h3>
-          <p class="body">No extra fee, no minimum order. It's included on every plan.</p>
+          <p class="body">No extra fee for pickup &amp; delivery. It's included on every plan.</p>
         </div>
         <div class="card feature-card">
           <div class="icon-tile" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
           <h3 class="card-title">24-hour turnaround</h3>
-          <p class="body">Drop it off today, wear it tomorrow. We'll tell you if it'll take longer.</p>
+          <p class="body">Schedule a pickup and we'll wash, dry, fold, and have it back at your door within 24 hours.</p>
         </div>
         <div class="card feature-card">
           <div class="icon-tile" aria-hidden="true">
@@ -271,6 +286,10 @@
           <h3 class="card-title">Eco-friendly detergent</h3>
           <p class="body">Plant-based, dye-free options available at no extra cost.</p>
         </div>
+      </div>
+      <div class="dev-note" style="max-width:896px;margin-left:auto;margin-right:auto;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.3 3.9L2.5 17a1.5 1.5 0 0 0 1.3 2.2h16.4a1.5 1.5 0 0 0 1.3-2.2L13.7 3.9a1.5 1.5 0 0 0-2.6 0z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><strong>For owner review:</strong> the Wash &amp; Fold pricing card states a 10&nbsp;lb minimum per pickup, while this page previously implied there was no minimum order. We've removed the conflicting "no minimum" wording above, but please confirm whether the 10&nbsp;lb minimum is still current policy so the pricing card can be corrected if needed.</span>
       </div>
     </div>
   </section>
@@ -314,44 +333,52 @@
     </div>
   </div>
 
-  <!-- Reviews -->
-  <section class="section section--paper" id="reviews">
+  <!-- New to the area (honest stand-in for customer reviews, which we don't
+       have yet -- no invented testimonials, ratings, or history) -->
+  <section class="section section--paper" id="new-to-the-area">
+    <div class="container">
+      <div class="card new-to-area-card reveal">
+        <div class="icon-tile icon-tile--lg" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h2 class="heading-2" style="font-size:28px;line-height:34px;margin-bottom:12px;">New to the South Bay</h2>
+        <p class="body">Sunday's Fold is just getting started in Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach, and El Segundo — so we don't have customer reviews to show you yet, and we're not going to make any up. What we can promise: every bag gets sorted and washed to the preferences you give us, and if something isn't right, you can reach a real person at (323) 470-3462.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust & service policy -->
+  <section class="section" id="policies">
     <div class="container">
       <div class="section-header reveal">
-        <span class="pill"><span class="dot" aria-hidden="true"></span>Reviews</span>
-        <h2 class="heading-2">What neighbors are saying</h2>
-        <p class="lead">We're just getting started in the South Bay — real customer reviews will land here soon.</p>
+        <span class="pill"><span class="dot" aria-hidden="true"></span>Policies</span>
+        <h2 class="heading-2">How we handle your laundry</h2>
+        <p class="lead">The parts of the process worth spelling out up front.</p>
       </div>
-      <div class="grid grid--3 review-grid reveal-stagger">
-        <div class="card review-card">
-          <p class="body review-quote">"Placeholder review — swap in a real customer quote once you have one."</p>
-          <div class="review-person">
-            <span class="avatar-disc" aria-hidden="true">—</span>
-            <div class="review-meta">
-              <p class="title-sm">Customer name</p>
-              <p class="body-sm" style="color:var(--text-muted)">Neighborhood</p>
-            </div>
-          </div>
+      <div class="grid grid--3 policy-grid reveal-stagger">
+        <div class="card policy-item">
+          <p class="card-title">Wash preferences</p>
+          <p class="body">Tell us your preferences when you book — cold wash, no fabric softener, extra hangers, and more — and we follow them on every order.</p>
         </div>
-        <div class="card review-card">
-          <p class="body review-quote">"Placeholder review — swap in a real customer quote once you have one."</p>
-          <div class="review-person">
-            <span class="avatar-disc" aria-hidden="true">—</span>
-            <div class="review-meta">
-              <p class="title-sm">Customer name</p>
-              <p class="body-sm" style="color:var(--text-muted)">Neighborhood</p>
-            </div>
-          </div>
+        <div class="card policy-item">
+          <p class="card-title">Detergent choices</p>
+          <p class="body">Plant-based, dye-free detergent is available at no extra cost — just note it in your wash preferences.</p>
         </div>
-        <div class="card review-card">
-          <p class="body review-quote">"Placeholder review — swap in a real customer quote once you have one."</p>
-          <div class="review-person">
-            <span class="avatar-disc" aria-hidden="true">—</span>
-            <div class="review-meta">
-              <p class="title-sm">Customer name</p>
-              <p class="body-sm" style="color:var(--text-muted)">Neighborhood</p>
-            </div>
-          </div>
+        <div class="card policy-item">
+          <p class="card-title">Cancellations</p>
+          <p class="body">Cancel a pickup any time before it's picked up, no charge.</p>
+        </div>
+        <div class="card policy-item policy-item--pending">
+          <p class="card-title">Order separation</p>
+          <p class="body">How individual households' orders are kept separate through washing and delivery.</p>
+        </div>
+        <div class="card policy-item policy-item--pending">
+          <p class="card-title">Stains &amp; damage</p>
+          <p class="body">What happens if an item is stained, damaged, or lost during processing.</p>
+        </div>
+        <div class="card policy-item policy-item--pending">
+          <p class="card-title">Payment timing</p>
+          <p class="body">Whether payment is taken at booking, at pickup, or after delivery.</p>
         </div>
       </div>
     </div>
@@ -454,7 +481,7 @@
       <ul>
         <li><a href="index.html#how-it-works">How it works</a></li>
         <li><a href="index.html#pricing">Pricing</a></li>
-        <li><a href="index.html#reviews">Reviews</a></li>
+        <li><a href="index.html#policies">Policies</a></li>
         <li><a href="index.html#faq">FAQ</a></li>
       </ul>
     </div>
@@ -482,7 +509,12 @@
   </div>
   <hr class="footer-rule">
   <div class="footer-bottom">
-    <p class="caption">&copy; Sunday&rsquo;s Fold &middot; sundaysfold.com</p>
+    <p class="caption">&copy; <span data-current-year>2026</span> Sunday&rsquo;s Fold</p>
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="service-policy.html">Service Policy</a>
+    </nav>
   </div>
 </footer>
 
