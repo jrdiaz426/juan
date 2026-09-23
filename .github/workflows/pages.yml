@@ -28,10 +28,17 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+      # Explicit allowlist: internal files (DESIGN.md, LAUNCH-CHECKLIST.md,
+      # this workflow) must never be served on the public website.
+      - name: Stage public files
+        run: |
+          mkdir _site
+          cp index.html contact.html privacy.html terms.html service-policy.html 404.html robots.txt sitemap.xml _site/
+          cp -r css js assets _site/
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

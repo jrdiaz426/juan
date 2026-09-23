@@ -5,7 +5,13 @@
   and the base classes below instead.
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Inter, self-hosted (SIL OFL 1.1 -- see assets/fonts/OFL.txt). Replaces the
+   Google Fonts @import, which blocked rendering behind a chained request and
+   sent every visitor's IP address to a third party. */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('../assets/fonts/inter-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('../assets/fonts/inter-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('../assets/fonts/inter-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('../assets/fonts/inter-latin-700-normal.woff2') format('woff2'); }
 
 :root {
   /* Brand (unchanged color scheme) */
@@ -29,7 +35,10 @@
   /* Text tiers */
   --text-strong: var(--color-ink);
   --text-secondary: var(--ink-80);
-  --text-muted: var(--ink-60);
+  /* Ink 60 (#797C83) measures 3.8-4.2:1 on white/paper/cream, under WCAG AA's
+     4.5:1 for small text. This slightly deeper ink keeps the muted look at
+     4.7-5.1:1. The Ink 60 tint itself is unchanged for non-text uses. */
+  --text-muted: #6B6E76;
 
   /* Hairlines (Ink at low opacity) */
   --hairline: rgba(31, 36, 48, 0.12);
@@ -57,6 +66,7 @@
 @media (max-width: 1023px) { :root { --space-section: 48px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
   margin: 0;
@@ -135,7 +145,6 @@ a { color: var(--color-secondary); text-decoration: underline; text-underline-of
 .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); position: relative; flex: none; }
 .badge { display: inline-flex; align-items: center; height: 22px; padding: 2px 8px; border-radius: var(--radius-full); font-size: 12px; font-weight: 500; }
 .badge-primary { background: var(--color-primary); color: #fff; }
-.badge-muted { background: rgba(210, 211, 214, 0.5); color: var(--text-strong); height: 20px; }
 
 /* Cards */
 .card {
@@ -145,12 +154,11 @@ a { color: var(--color-secondary); text-decoration: underline; text-underline-of
   box-shadow: var(--shadow-card);
   padding: 24px;
 }
-.card--featured { border-color: var(--color-primary); transform: translateY(-16px); position: relative; }
+.card--featured { border-color: var(--color-primary); position: relative; }
 .card--panel { border-radius: var(--radius-lg); border-color: var(--hairline-faint); box-shadow: var(--shadow-panel); padding: 32px; }
 .icon-tile { width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--bg-paper); display: grid; place-items: center; color: var(--text-strong); }
 .icon-tile--lg { width: 56px; height: 56px; }
 .step-numeral { width: 48px; height: 48px; border-radius: 50%; background: #fff; border: 1px solid var(--hairline); display: grid; place-items: center; font-size: 18px; font-weight: 600; }
-@media (max-width: 767px) { .card--featured { transform: none; } }
 
 /* Forms */
 .field-label { display: block; font-size: 13px; line-height: 19.5px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px; }
@@ -172,8 +180,11 @@ textarea.input { height: auto; padding: 10px 12px; resize: vertical; }
   height: 36px; padding: 0 14px; border-radius: var(--radius-full); border: 1px solid var(--hairline);
   background: #fff; font-size: 14px; color: var(--text-strong); cursor: pointer;
 }
-.chip[aria-pressed="true"] { background: var(--color-secondary); border-color: var(--color-secondary); color: #fff; }
-.chip:focus-visible, .accordion-trigger:focus-visible, .icon-btn:focus-visible, .nav-links a:focus-visible, .city-chip:focus-visible {
+/* Chips are the visible face of real radio inputs (see .chip-option in
+   site.css), so the selected value submits with the form and arrow keys work. */
+.chip-option input:checked + .chip { background: var(--color-secondary); border-color: var(--color-secondary); color: #fff; }
+.chip-option input:focus-visible + .chip,
+.accordion-trigger:focus-visible, .icon-btn:focus-visible, .nav-links a:focus-visible {
   outline: 2px solid var(--color-secondary); outline-offset: 2px;
 }
 
