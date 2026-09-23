@@ -134,8 +134,10 @@ legend { padding: 0; }
   background: radial-gradient(circle, var(--secondary-20) 0%, transparent 70%);
   filter: blur(30px);
 }
-.hero-illustration { width: 100%; height: auto; display: block; }
-@media (max-width: 1023px) { .hero-image-frame { max-width: 360px; } }
+/* Primary brand logo, front and center in the hero. */
+.hero-logo-frame { padding: 36px; }
+.hero-logo { width: 100%; height: auto; display: block; }
+@media (max-width: 1023px) { .hero-image-frame { max-width: 360px; } .hero-logo-frame { padding: 32px; } }
 
 /* ---------- Trust bar ---------- */
 .trust-bar {
