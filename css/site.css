@@ -124,20 +124,10 @@ legend { padding: 0; }
 .zip-result[data-state="out"] { color: var(--text-secondary); }
 
 .hero-visual { display: flex; justify-content: center; position: relative; }
-.hero-image-frame {
-  position: relative; width: 100%; max-width: 460px; border-radius: var(--radius-md);
-  border: 1px solid rgba(31, 36, 48, 0.1); box-shadow: var(--shadow-hero);
-  background: #fff; overflow: hidden;
-}
-.hero-image-frame::before {
-  content: ""; position: absolute; inset: -40px; z-index: -1; border-radius: 50%;
-  background: radial-gradient(circle, var(--secondary-20) 0%, transparent 70%);
-  filter: blur(30px);
-}
-/* Primary brand logo, front and center in the hero. */
-.hero-logo-frame { padding: 36px; }
+/* Primary brand logo, front and center in the hero, sitting directly on the page. */
+.hero-logo-wrap { width: 100%; max-width: 440px; }
 .hero-logo { width: 100%; height: auto; display: block; }
-@media (max-width: 1023px) { .hero-image-frame { max-width: 360px; } .hero-logo-frame { padding: 32px; } }
+@media (max-width: 1023px) { .hero-logo-wrap { max-width: 300px; } }
 
 /* ---------- Trust bar ---------- */
 .trust-bar {
