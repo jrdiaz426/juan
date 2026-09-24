@@ -59,6 +59,14 @@ Each item: **decision needed → pages affected → what the site says now → o
 - **Pages:** `contact.html` ("What happens next" step 3 currently says only "No payment is taken on this website." That's true today, but it isn't a policy), `service-policy.html`, `terms.html`.
 - **Risk:** Customers can't budget or trust the process, and uncollected payments.
 
+#### A6a. Paying through Square (researched 2026-09-24, not built yet)
+
+- **The site can't hold secrets.** GitHub Pages serves static files only: no server, no place for a Square access token, no endpoint that can receive Square webhooks.
+- **Wash & Fold is priced by weight,** so the total isn't known until after pickup. A fixed Square payment link can't charge it. Recommended: your sister sends a **Square Invoice** from the Square Dashboard after weighing. No website code, no secrets, and Square itself records whether it was paid.
+- **Family Bag is a flat price per bag.** It can use the same invoice flow, or (only if you want payment at booking) a **Square payment link** created in the Dashboard. For the link route the site would show "bags × price = total" before sending the customer to Square, plus a return page that never claims the order is paid. Open questions for the link route: whether a Square link can let customers pick a quantity (Square's docs are unclear), and refunds when a requested pickup can't be confirmed.
+- **Automatic per-order links** (the Checkout API) would need a separate server holding the token as a server-side secret, plus a webhook endpoint that verifies the `x-square-hmacsha256-signature` header. Not recommended at this stage.
+- **Blocked on:** confirmed prices (A1–A4), payment timing (A6), and tax treatment (her accountant).
+
 ### A7. Order separation
 
 - **Decision:** How each household's laundry is kept separate (one machine per order? bag tags?).
