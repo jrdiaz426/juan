@@ -141,6 +141,8 @@ The booking form's consent checkbox links to Terms and Service Policy. **Don't e
 
 ### B1. Booking form endpoint
 
+**Done for `book.html` (2026-09-26):** the new booking page posts to Formspree form `mnpngwel`, which emails ccc@sundaysfold.com. Still to do: send one real test from the deployed page, and check in the Formspree dashboard that reCAPTCHA / domain restrictions allow AJAX submissions. The steps below apply to the older `contact.html` forms.
+
 1. Choose a form service that accepts `POST` and emails you, e.g. Formspree (`https://formspree.io/f/XXXXXXXX`), or a booking platform's form endpoint.
 2. In `contact.html`, set the booking form's `action` attribute: `<form id="booking-form" method="post" action="https://formspree.io/f/XXXXXXXX" ...>`
 3. Also in `contact.html`: delete the `disabled` attribute from the booking submit button, and delete the `<div class="form-unavailable" ...>` notice above the booking form. (JavaScript does both automatically once `action` is set. Doing it in the HTML as well makes the form work for visitors without JavaScript.)
