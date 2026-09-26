@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book a Pickup | Sunday's Fold — Laundry Pickup &amp; Delivery in the South Bay</title>
+<meta name="description" content="Request a laundry pickup in Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach or El Segundo. We'll contact you to confirm before anything is scheduled.">
+<meta name="theme-color" content="#FFF6E5">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.classList.remove("no-js"); document.documentElement.classList.add("js");</script>
+<!--
+  Sunday's Fold — booking page.
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │ HOW BOOKINGS REACH ccc@sundaysfold.com                              │
+  │                                                                     │
+  │ GitHub Pages can't send email, so the form posts to Formspree,      │
+  │ which forwards each request to the inbox set on the Formspree form  │
+  │ (create it with ccc@sundaysfold.com).                               │
+  │                                                                     │
+  │ TO GO LIVE:                                                         │
+  │  1. Replace YOUR_FORM_ID in the form's action attribute below       │
+  │     (search for "formspree.io/f/"). With JavaScript on, that alone  │
+  │     enables the form and hides the "not open yet" notice.           │
+  │  2. For visitors without JavaScript, also delete the `disabled`     │
+  │     attribute on the "Send pickup request" button and the element   │
+  │     with id="booking-closed".                                       │
+  │  3. Send one real test request and check it arrives.                │
+  │  4. Update privacy.html: it currently says the site's forms don't   │
+  │     accept submissions.                                             │
+  │                                                                     │
+  │ Customer data goes only in the POST body to Formspree: never in     │
+  │ the URL, browser storage, or the console.                           │
+  │                                                                     │
+  │ Deliberately not asked for: pickup time slots (none confirmed, so   │
+  │ the form asks for a preferred part of the day) and agreement to     │
+  │ Terms / Service Policy (not yet reviewed — LAUNCH-CHECKLIST A16).   │
+  └─────────────────────────────────────────────────────────────────────┘
+-->
+<style>
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+
+:root {
+  color-scheme: light;
+  --sunrise: #C4531F;
+  --sunrise-hover: #A94718;
+  --blue: #2F5D8A;
+  --blue-hover: #264D73;
+  --ink: #1F2430;
+  --ink-80: #4C5059;
+  --muted: #6B6E76;
+  --error: #A94718;          /* 5.8:1 on white */
+  --white: #FFFFFF;
+  --cream: #FFF6E5;
+  --paper: #F7F5F0;
+  --blush: #FAF1ED;
+  --hairline: rgba(31, 36, 48, 0.12);
+  --hairline-strong: rgba(31, 36, 48, 0.22);
+  --hairline-soft: rgba(31, 36, 48, 0.08);
+  --font: "Inter", -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-full: 9999px;
+  --shadow-card: 0 1px 3px rgba(31, 36, 48, 0.04);
+  --shadow-button: 0 4px 14px rgba(196, 83, 31, 0.18);
+  --shadow-panel: 0 20px 25px -5px rgba(31, 36, 48, 0.04), 0 8px 10px -6px rgba(31, 36, 48, 0.04);
+  --gutter: clamp(16px, 4vw, 32px);
+  --container: 1120px;
+  --header-h: 64px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 16px); }
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+[hidden] { display: none !important; }
+h1, h2, h3, p, ul, ol, dl, dd, fieldset { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+fieldset { padding: 0; border: 0; min-width: 0; }
+h1, h2, h3 { text-wrap: balance; }
+a { color: var(--blue); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--blue-hover); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 2px; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 16px; top: 12px; z-index: 100;
+  padding: 10px 16px;
+  background: var(--ink); color: var(--white);
+  border-radius: var(--r-xs);
+  font-weight: 500; font-size: 15px; text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease-out);
+}
+.skip-link:focus { transform: none; color: var(--white); }
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 22px;
+  border: 1px solid transparent; border-radius: var(--r-xs);
+  font: 500 16px/1 var(--font);
+  text-decoration: none; white-space: nowrap; cursor: pointer;
+  transition: transform 0.2s var(--ease-out), background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary { background: var(--sunrise); color: var(--white); box-shadow: var(--shadow-button); }
+.btn-primary:hover:not(:disabled) { background: var(--sunrise-hover); color: var(--white); transform: translateY(-1px); }
+.btn-primary:disabled { background: #D9D2CC; color: var(--ink-80); box-shadow: none; cursor: not-allowed; }
+.btn-secondary { background: var(--white); color: var(--ink); border-color: var(--hairline); box-shadow: var(--shadow-card); }
+.btn-secondary:hover { background: var(--paper); color: var(--ink); }
+.btn-ghost { background: transparent; color: var(--ink); padding: 0 12px; min-height: 40px; font-size: 15px; }
+.btn-ghost:hover { background: rgba(31, 36, 48, 0.05); color: var(--ink); }
+.btn-block { width: 100%; }
+.btn[aria-busy="true"] { cursor: progress; }
+
+/* ---------- Header: logo and phone only, so nothing competes with the form ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.header-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: var(--header-h); }
+.brand { display: inline-flex; border-radius: var(--r-xs); }
+.brand img { width: 128px; }
+.header-phone .label-short { display: none; }
+@media (max-width: 560px) {
+  .header-phone .label-long { display: none; }
+  .header-phone .label-short { display: inline; }
+}
+
+/* ---------- Intro ---------- */
+.intro {
+  background:
+    radial-gradient(90% 120% at 100% 0%, rgba(243, 221, 210, 0.8) 0%, rgba(243, 221, 210, 0) 60%),
+    linear-gradient(180deg, #FFFDF9 0%, var(--cream) 100%);
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.intro-inner { display: grid; gap: 14px; padding-block: clamp(40px, 6vw, 72px) clamp(36px, 5vw, 56px); }
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  width: fit-content; min-height: 44px;
+  color: var(--ink-80); font-size: 15px; font-weight: 500; text-decoration: none;
+}
+.back-link:hover { color: var(--ink); }
+.intro h1 {
+  font-size: clamp(2.25rem, 1.6rem + 2.8vw, 3.5rem);
+  line-height: 1.04; font-weight: 600; letter-spacing: -0.04em;
+}
+.intro p { font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); color: var(--ink-80); max-width: 34em; }
+
+/* ---------- Layout ---------- */
+.book-grid {
+  display: grid;
+  gap: 32px;
+  padding-block: clamp(32px, 5vw, 56px) clamp(64px, 8vw, 104px);
+}
+@media (min-width: 960px) {
+  .book-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: 48px; align-items: start; }
+  .side { position: sticky; top: calc(var(--header-h) + 32px); }
+}
+
+/* ---------- Booking card ---------- */
+.booking-card {
+  background: var(--white);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-panel);
+  padding: clamp(20px, 4vw, 40px);
+}
+.form-section + .form-section { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--hairline-soft); }
+/* Floating the legend makes it an ordinary block, so it sits below the divider instead of on it. */
+.form-section > legend { float: left; width: 100%; }
+.form-section > legend + * { clear: both; }
+.form-section > legend, .form-section-title {
+  display: block;
+  padding: 0;
+  margin-bottom: 18px;
+  font-size: 1.125rem; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.fields { display: grid; gap: 18px; }
+.fields-2 { display: grid; gap: 18px; }
+@media (min-width: 600px) { .fields-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.field { display: grid; gap: 6px; align-content: start; }
+.label { font-size: 15px; line-height: 1.4; font-weight: 500; color: var(--ink); }
+.label .optional { font-weight: 400; color: var(--muted); }
+.hint { font-size: 14px; line-height: 1.45; color: var(--muted); }
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  font: 400 16px/1.4 var(--font);   /* 16px stops iOS zooming on focus */
+  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-sm);
+  transition: border-color 0.15s ease;
+}
+.input:hover { border-color: rgba(31, 36, 48, 0.36); }
+.input:focus { outline: none; border-color: var(--blue); box-shadow: inset 0 0 0 1px var(--blue); }
+textarea.input { min-height: 104px; resize: vertical; }
+select.input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%234C5059' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+.input[aria-invalid="true"] { border-color: var(--error); box-shadow: inset 0 0 0 1px var(--error); }
+
+.error {
+  display: flex; gap: 6px; align-items: flex-start;
+  font-size: 14px; line-height: 1.4; font-weight: 500; color: var(--error);
+}
+.error::before {
+  content: "";
+  flex: none;
+  width: 14px; height: 14px; margin-top: 2px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 5h2v7h-2zm0 9h2v2h-2z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 5h2v7h-2zm0 9h2v2h-2z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Choice chips (radio): the input stays focusable, the label is the target. */
+.choices { display: flex; flex-wrap: wrap; gap: 10px; }
+.choice { position: relative; }
+.choice input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.choice span {
+  display: inline-flex; align-items: center;
+  min-height: 44px; padding: 0 18px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-full);
+  background: var(--white);
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.choice:hover span { border-color: rgba(31, 36, 48, 0.4); }
+.choice input:checked + span { background: var(--blue); border-color: var(--blue); color: var(--white); }
+.choice input:focus-visible + span { outline: 2px solid var(--blue); outline-offset: 3px; }
+.choice input[aria-invalid="true"] + span { border-color: var(--error); }
+
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Notices */
+.notice {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  font-size: 15px; line-height: 1.55;
+}
+.notice svg { flex: none; margin-top: 2px; }
+.notice--info { background: var(--paper); border: 1px solid var(--hairline-soft); color: var(--ink-80); }
+.notice--info svg { color: var(--blue); }
+.notice--error { background: var(--blush); border: 1px solid rgba(169, 71, 24, 0.3); color: var(--ink); }
+.notice--error svg { color: var(--error); }
+.notice strong { color: var(--ink); font-weight: 600; }
+.booking-card > .notice { margin-bottom: 28px; }
+
+.error-summary ul { margin-top: 6px; display: grid; gap: 2px; }
+.error-summary a { color: var(--error); font-weight: 500; }
+
+.submit-row { display: grid; gap: 12px; margin-top: 32px; }
+.submit-note { font-size: 14px; color: var(--muted); text-align: center; }
+
+/* Success */
+.success { display: grid; gap: 18px; }
+.success:focus { outline: none; }
+.success { scroll-margin-top: calc(var(--header-h) + 24px); }
+.success-icon {
+  display: grid; place-items: center;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--cream);
+  color: var(--sunrise);
+}
+.success h2 { font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem); line-height: 1.15; font-weight: 600; letter-spacing: -0.03em; }
+.success p { color: var(--ink-80); max-width: 34em; }
+.summary-list { display: grid; border-top: 1px solid var(--hairline-soft); }
+.summary-list div {
+  display: grid; grid-template-columns: minmax(0, 9em) minmax(0, 1fr); gap: 12px;
+  padding-block: 10px; border-bottom: 1px solid var(--hairline-soft);
+  font-size: 15px;
+}
+.summary-list dt { color: var(--muted); }
+.summary-list dd { color: var(--ink); overflow-wrap: anywhere; white-space: pre-line; }
+
+/* ---------- Side column ---------- */
+.side { display: grid; gap: 16px; }
+.side-card {
+  background: var(--paper);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-md);
+  padding: 24px;
+}
+.side-card h2 { font-size: 1.125rem; line-height: 1.3; font-weight: 600; margin-bottom: 16px; }
+.next-steps { display: grid; gap: 16px; counter-reset: step; }
+.next-steps li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.5; color: var(--ink-80); }
+.next-steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  display: grid; place-items: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  font-size: 13px; font-weight: 600; color: var(--ink);
+}
+.next-steps strong { display: block; color: var(--ink); font-weight: 600; }
+.contact-lines { display: grid; gap: 4px; font-size: 15px; }
+.contact-lines a { display: inline-flex; min-height: 36px; align-items: center; font-weight: 500; }
+.side-art { width: min(100%, 300px); margin: 8px auto 0; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--paper);
+  border-top: 1px solid var(--hairline);
+  padding-block: 32px;
+  padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
+  font-size: 14px;
+  color: var(--muted);
+}
+.footer-inner { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.footer-links a { color: var(--ink-80); text-decoration: none; display: inline-flex; min-height: 36px; align-items: center; }
+.footer-links a:hover { color: var(--ink); text-decoration: underline; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  .btn-primary:hover:not(:disabled) { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#booking-form">Skip to the booking form</a>
+
+<header class="site-header">
+  <div class="container header-bar">
+    <a class="brand" href="one-page.html">
+      <img src="assets/img/logo-horizontal-260.webp" srcset="assets/img/logo-horizontal-260.webp 260w, assets/img/logo-horizontal.webp 619w" sizes="128px" width="260" height="90" alt="Sunday's Fold home">
+    </a>
+    <a class="btn btn-ghost header-phone" href="tel:+13234703462">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4.6c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      <span class="label-long">Call or text (323) 470-3462</span>
+      <span class="label-short">(323) 470-3462</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="intro" aria-labelledby="page-title">
+    <div class="container intro-inner">
+      <a class="back-link" href="one-page.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back to home
+      </a>
+      <h1 id="page-title">Request a pickup</h1>
+      <p>Tell us where and when. We&rsquo;ll contact you to confirm before anything is scheduled.</p>
+    </div>
+  </section>
+
+  <div class="container book-grid">
+    <div class="booking-card">
+
+      <!-- Shown until the Formspree form ID is set (see the note at the top of this file). -->
+      <div class="notice notice--info" id="booking-closed" role="note">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5.5M12 7.8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <p><strong>Online booking isn&rsquo;t open yet.</strong> To schedule a pickup now, call or text <a href="tel:+13234703462">(323) 470-3462</a> or email <a href="mailto:ccc@sundaysfold.com">ccc@sundaysfold.com</a>.</p>
+      </div>
+
+      <div class="notice notice--error error-summary" id="error-summary" tabindex="-1" role="alert" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V13M12 16.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div>
+          <p><strong>A few details need another look:</strong></p>
+          <ul></ul>
+        </div>
+      </div>
+
+      <form id="booking-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="Pickup request — Sunday's Fold">
+        <div class="hp-field" aria-hidden="true">
+          <label for="f-gotcha">Leave this field empty</label>
+          <input type="text" id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+        </div>
+
+        <fieldset class="form-section">
+          <legend>About you</legend>
+          <div class="fields">
+            <div class="field">
+              <label class="label" for="f-name">Full name</label>
+              <input class="input" id="f-name" name="name" type="text" autocomplete="name" required data-error="Enter your full name.">
+            </div>
+            <div class="fields-2">
+              <div class="field">
+                <label class="label" for="f-phone">Mobile phone</label>
+                <input class="input" id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required data-error="Enter a 10-digit phone number, like (310) 555-0123.">
+              </div>
+              <div class="field">
+                <label class="label" for="f-email">Email</label>
+                <input class="input" id="f-email" name="email" type="email" autocomplete="email" required data-error="Enter an email address, like name@example.com.">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Pickup address</legend>
+          <div class="fields">
+            <div class="field">
+              <label class="label" for="f-address">Street address</label>
+              <input class="input" id="f-address" name="address" type="text" autocomplete="street-address" required data-error="Enter the street address for pickup.">
+              <p class="hint" id="f-address-hint">Include an apartment or unit number, and a gate code if we&rsquo;ll need one.</p>
+            </div>
+            <div class="fields-2">
+              <div class="field">
+                <label class="label" for="f-city">City</label>
+                <select class="input" id="f-city" name="city" autocomplete="address-level2" required data-error="Choose your city." aria-describedby="f-city-hint">
+                  <option value="">Choose a city</option>
+                  <option>Gardena</option>
+                  <option>Lawndale</option>
+                  <option>Hawthorne</option>
+                  <option>Torrance</option>
+                  <option>Redondo Beach</option>
+                  <option>El Segundo</option>
+                </select>
+                <p class="hint" id="f-city-hint">Somewhere else? Call or text <a href="tel:+13234703462">(323) 470-3462</a>.</p>
+              </div>
+              <div class="field">
+                <label class="label" for="f-zip">ZIP code</label>
+                <input class="input" id="f-zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" required data-error="Enter a 5-digit ZIP code.">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>When and what</legend>
+          <div class="fields">
+            <div class="fields-2">
+              <div class="field">
+                <label class="label" for="f-date">Preferred pickup date</label>
+                <input class="input" id="f-date" name="preferred_date" type="date" required data-error="Choose a pickup date that isn't in the past.">
+              </div>
+              <div class="field">
+                <label class="label" for="f-service">Service</label>
+                <select class="input" id="f-service" name="service" required data-error="Choose a service.">
+                  <option value="">Choose a service</option>
+                  <option value="Wash &amp; Fold">Wash &amp; Fold</option>
+                  <option value="Family Bag">Family Bag</option>
+                  <option value="Not sure yet">Not sure yet</option>
+                </select>
+              </div>
+            </div>
+            <fieldset class="field" id="f-time-group" aria-describedby="f-time-hint">
+              <legend class="label">Preferred time of day</legend>
+              <div class="choices" data-error="Choose a preferred time of day.">
+                <label class="choice"><input type="radio" id="f-time" name="preferred_time" value="Morning" required><span>Morning</span></label>
+                <label class="choice"><input type="radio" name="preferred_time" value="Afternoon"><span>Afternoon</span></label>
+                <label class="choice"><input type="radio" name="preferred_time" value="Evening"><span>Evening</span></label>
+                <label class="choice"><input type="radio" name="preferred_time" value="Flexible"><span>I&rsquo;m flexible</span></label>
+              </div>
+              <p class="hint" id="f-time-hint">We&rsquo;ll confirm an exact pickup window with you.</p>
+            </fieldset>
+            <div class="field">
+              <label class="label" for="f-bags">How many bags? <span class="optional">(optional)</span></label>
+              <input class="input" id="f-bags" name="bags" type="number" inputmode="numeric" min="1" max="20" step="1" data-error="Enter a number of bags from 1 to 20." aria-describedby="f-bags-hint" style="max-width: 10rem">
+              <p class="hint" id="f-bags-hint">A rough guess is fine.</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Your preferences</legend>
+          <div class="fields">
+            <div class="field">
+              <label class="label" for="f-prefs">How do you like your laundry washed? <span class="optional">(optional)</span></label>
+              <textarea class="input" id="f-prefs" name="preferences" rows="3" aria-describedby="f-prefs-hint"></textarea>
+              <p class="hint" id="f-prefs-hint">Detergent, water temperature, drying, how you like things folded.</p>
+            </div>
+            <div class="field">
+              <label class="label" for="f-notes">Anything else? <span class="optional">(optional)</span></label>
+              <textarea class="input" id="f-notes" name="notes" rows="3" aria-describedby="f-notes-hint"></textarea>
+              <p class="hint" id="f-notes-hint">Where you&rsquo;ll leave the bag, parking, or questions for us.</p>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="submit-row">
+          <p class="notice notice--error" id="send-error" role="alert" hidden></p>
+          <button class="btn btn-primary btn-block" id="submit-btn" type="submit" disabled aria-describedby="booking-closed">
+            Send pickup request
+          </button>
+          <p class="submit-note">This is a request, not a confirmed booking. We&rsquo;ll contact you to confirm.</p>
+        </div>
+      </form>
+
+      <div class="success" id="success" tabindex="-1" aria-labelledby="success-title" hidden>
+        <span class="success-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <h2 id="success-title">Request sent</h2>
+        <p>Thanks. Your pickup isn&rsquo;t booked yet: we&rsquo;ll contact you to confirm a pickup window. Questions in the meantime? Call or text <a href="tel:+13234703462">(323) 470-3462</a>.</p>
+        <dl class="summary-list" id="success-summary" aria-label="What you sent"></dl>
+        <p><a href="one-page.html">Back to home</a></p>
+      </div>
+    </div>
+
+    <aside class="side" aria-label="How booking works">
+      <div class="side-card">
+        <h2>What happens next</h2>
+        <ol class="next-steps">
+          <li><div><strong>We confirm</strong>We contact you to confirm your pickup window. It isn&rsquo;t booked until we do.</div></li>
+          <li><div><strong>Leave your bag out</strong>Put it by the door during your confirmed window. You don&rsquo;t need to be home.</div></li>
+          <li><div><strong>Back in 24 hours</strong>Fresh and folded, within 24 hours of pickup.</div></li>
+        </ol>
+      </div>
+      <div class="side-card">
+        <h2>Rather talk to someone?</h2>
+        <div class="contact-lines">
+          <a href="tel:+13234703462">Call or text (323) 470-3462</a>
+          <a href="mailto:ccc@sundaysfold.com">ccc@sundaysfold.com</a>
+        </div>
+      </div>
+      <img class="side-art" src="assets/img/laundry-bag-480.webp" width="480" height="473" alt="" loading="lazy" decoding="async">
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; 2026 Sunday&rsquo;s Fold &middot; sundaysfold.com</p>
+    <nav class="footer-links" aria-label="Policies">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="service-policy.html">Service Policy</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+/* Booking form. Progressive enhancement: the HTML form posts to Formspree
+   on its own. This script adds inline validation and an in-page result.
+   Customer data is sent only in the POST body: never placed in the URL,
+   browser storage, or the console. */
+(function () {
+  "use strict";
+
+  var form = document.getElementById("booking-form");
+  var closedNotice = document.getElementById("booking-closed");
+  var submitBtn = document.getElementById("submit-btn");
+  var summary = document.getElementById("error-summary");
+  var sendError = document.getElementById("send-error");
+  var success = document.getElementById("success");
+  if (!form) return;
+
+  var PLACEHOLDER = "YOUR_FORM_ID";
+  var configured = form.getAttribute("action").indexOf(PLACEHOLDER) === -1;
+
+  if (configured) {
+    closedNotice.hidden = true;
+    submitBtn.disabled = false;
+    submitBtn.removeAttribute("aria-describedby");
+  }
+
+  /* Earliest pickup date: today, in the visitor's own time zone. */
+  var dateInput = document.getElementById("f-date");
+  var now = new Date();
+  var today = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  dateInput.min = today;
+
+  /* Preselect a plan passed as ?plan=wash-fold or ?plan=family-bag (not customer data). */
+  var plan = new URLSearchParams(window.location.search).get("plan");
+  var planMap = { "wash-fold": "Wash & Fold", "family-bag": "Family Bag" };
+  if (plan && planMap[plan]) document.getElementById("f-service").value = planMap[plan];
+
+  /* ---------- Validation ---------- */
+  function digits(v) { return v.replace(/\D/g, ""); }
+
+  var checks = [
+    { el: "f-name", ok: function (v) { return v.trim().length > 1; } },
+    { el: "f-phone", ok: function (v) { var d = digits(v); return d.length === 10 || (d.length === 11 && d.charAt(0) === "1"); } },
+    { el: "f-email", ok: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); } },
+    { el: "f-address", ok: function (v) { return v.trim().length > 4; } },
+    { el: "f-city", ok: function (v) { return v !== ""; } },
+    { el: "f-zip", ok: function (v) { return /^\d{5}$/.test(v.trim()); } },
+    { el: "f-date", ok: function (v) { return v !== "" && v >= today; } },
+    { el: "f-service", ok: function (v) { return v !== ""; } },
+    { el: "f-time", group: "preferred_time" },
+    { el: "f-bags", optional: true, ok: function (v) { var n = Number(v); return Number.isInteger(n) && n >= 1 && n <= 20; } }
+  ];
+
+  function errorId(id) { return id + "-error"; }
+
+  function setError(check, message) {
+    var input = document.getElementById(check.el);
+    // For a radio group, the fieldset carries the description and each radio carries aria-invalid.
+    var target = check.group ? document.getElementById("f-time-group") : input;
+    var host = check.group ? target : input.closest(".field");
+    var invalidEls = check.group ? form.querySelectorAll('input[name="' + check.group + '"]') : [input];
+    var existing = document.getElementById(errorId(check.el));
+    var describedBy = (target.getAttribute("aria-describedby") || "").split(" ").filter(function (x) { return x && x !== errorId(check.el); });
+
+    if (message) {
+      if (!existing) {
+        existing = document.createElement("p");
+        existing.className = "error";
+        existing.id = errorId(check.el);
+        host.appendChild(existing);
+      }
+      existing.textContent = message;
+      invalidEls.forEach(function (el) { el.setAttribute("aria-invalid", "true"); });
+      describedBy.push(errorId(check.el));
+    } else {
+      if (existing) existing.remove();
+      invalidEls.forEach(function (el) { el.removeAttribute("aria-invalid"); });
+    }
+    if (describedBy.length) target.setAttribute("aria-describedby", describedBy.join(" "));
+    else target.removeAttribute("aria-describedby");
+  }
+
+  function validate(check) {
+    var input = document.getElementById(check.el);
+    var valid;
+    if (check.group) {
+      valid = !!form.querySelector('input[name="' + check.group + '"]:checked');
+    } else {
+      var v = input.value;
+      valid = (check.optional && v.trim() === "") || check.ok(v);
+    }
+    var message = check.group ? input.closest(".choices").getAttribute("data-error") : input.getAttribute("data-error");
+    setError(check, valid ? "" : message);
+    return valid ? null : { id: check.el, message: message };
+  }
+
+  // Validate a field when the visitor leaves it, and re-check fields already marked invalid as they type.
+  checks.forEach(function (check) {
+    var input = document.getElementById(check.el);
+    if (check.group) {
+      form.querySelectorAll('input[name="' + check.group + '"]').forEach(function (r) {
+        r.addEventListener("change", function () { validate(check); });
+      });
+      return;
+    }
+    input.addEventListener("blur", function () { if (input.value !== "") validate(check); });
+    input.addEventListener("input", function () { if (input.getAttribute("aria-invalid") === "true") validate(check); });
+    input.addEventListener("change", function () { if (input.getAttribute("aria-invalid") === "true") validate(check); });
+  });
+
+  function showSummary(errors) {
+    var list = summary.querySelector("ul");
+    list.textContent = "";
+    errors.forEach(function (err) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = "#" + err.id;
+      a.textContent = err.message;
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var el = document.getElementById(err.id);
+        el.focus();
+        el.scrollIntoView({ block: "center" });
+      });
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+    summary.hidden = false;
+    summary.focus();
+  }
+
+  /* ---------- Submit ---------- */
+  var LABELS = {
+    name: "Name", phone: "Phone", email: "Email", address: "Address", city: "City",
+    zip: "ZIP code", preferred_date: "Preferred date", preferred_time: "Time of day",
+    service: "Service", bags: "Bags", preferences: "Preferences", notes: "Notes"
+  };
+
+  function renderSummary(data) {
+    var dl = document.getElementById("success-summary");
+    dl.textContent = "";
+    Object.keys(LABELS).forEach(function (key) {
+      var value = data.get(key);
+      if (!value || !String(value).trim()) return;
+      var row = document.createElement("div");
+      var dt = document.createElement("dt");
+      var dd = document.createElement("dd");
+      dt.textContent = LABELS[key];
+      dd.textContent = String(value);
+      row.appendChild(dt);
+      row.appendChild(dd);
+      dl.appendChild(row);
+    });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!configured) return;
+    sendError.hidden = true;
+
+    var errors = checks.map(validate).filter(Boolean);
+    if (errors.length) { showSummary(errors); return; }
+    summary.hidden = true;
+
+    var data = new FormData(form);
+    submitBtn.disabled = true;
+    submitBtn.setAttribute("aria-busy", "true");
+    submitBtn.textContent = "Sending…";
+
+    fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } })
+      .then(function (res) {
+        if (!res.ok) throw new Error("status " + res.status);
+        renderSummary(data);
+        form.reset();
+        form.hidden = true;
+        success.hidden = false;
+        success.focus();
+        success.scrollIntoView({ block: "start" });
+      })
+      .catch(function () {
+        sendError.innerHTML = "";
+        sendError.appendChild(document.createTextNode("We couldn't send your request. Check your connection and try again, or call or text "));
+        var a = document.createElement("a");
+        a.href = "tel:+13234703462";
+        a.textContent = "(323) 470-3462";
+        sendError.appendChild(a);
+        sendError.appendChild(document.createTextNode("."));
+        sendError.hidden = false;
+      })
+      .then(function () {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute("aria-busy");
+        submitBtn.textContent = "Send pickup request";
+      });
+  });
+})();
+</script>
+</body>
+</html>
