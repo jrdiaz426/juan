@@ -528,14 +528,6 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   max-width: 31em;
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
-.hero-note {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 15px;
-  color: var(--ink-80);
-}
-.hero-note a { color: var(--ink); font-weight: 500; }
 
 /* Logo composition */
 .hero-art {
@@ -803,9 +795,7 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   font-weight: 500;
   line-height: 1.25;
   color: var(--ink);
-  transition: transform 0.25s var(--ease-out), border-color 0.25s ease;
 }
-.city:hover { transform: translateY(-2px); border-color: rgba(196, 83, 31, 0.35); }
 .city svg { color: var(--sunrise); flex: none; }
 @media (min-width: 900px) {
   .area-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(48px, 6vw, 96px); }
@@ -970,7 +960,7 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .btn:hover, .city:hover { transform: none; }
+  .btn:hover { transform: none; }
 }
 
 @media print {
@@ -1056,7 +1046,6 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
           </a>
           <a class="btn btn-secondary" href="#pricing">See pricing</a>
         </div>
-        <p class="hero-note">Questions first? Call or text <a href="tel:+13234703462">(323) 470-3462</a></p>
       </div>
 
       <div class="hero-art">
@@ -1305,7 +1294,6 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
       <div class="faq-head section-head" data-reveal>
         <p class="eyebrow"><span class="dot" aria-hidden="true"></span>FAQ</p>
         <h2 class="h2" id="faq-title">Questions, answered</h2>
-        <p class="lead">Still wondering about something? Call or text <a href="tel:+13234703462">(323) 470-3462</a>.</p>
       </div>
 
       <div class="faq-list" data-accordion data-reveal>
@@ -1379,7 +1367,7 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
           <li><a href="#pricing">Pricing</a></li>
           <li><a href="#service-area">Service area</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="book.html">Contact</a></li>
         </ul>
       </nav>
       <nav class="footer-col" aria-labelledby="f-policies">
