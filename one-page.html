@@ -1,0 +1,1664 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Home | Sunday's Fold — Laundry Pickup &amp; Delivery in the South Bay</title>
+<meta name="description" content="Laundry pickup &amp; delivery with wash, dry &amp; fold in Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach and El Segundo. Fresh, folded, and back in 24 hours.">
+<meta name="theme-color" content="#FFF6E5">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.classList.remove("no-js"); document.documentElement.classList.add("js");</script>
+<!--
+  Sunday's Fold — one-page homepage concept.
+
+  Self-contained: all CSS and JS live in this file. The only other requests
+  are the brand's own files in this repository (assets/img, assets/fonts),
+  loaded by relative path. No third-party resources, no frameworks.
+
+  Typography: Inter only, per DESIGN.md §3 ("One typeface: Inter ... No
+  serif"). It is served from the repo's self-hosted woff2 files, so no
+  Google Fonts request is needed.
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │ CONTENT AWAITING OWNER CONFIRMATION (see LAUNCH-CHECKLIST.md A1–A4) │
+  │                                                                     │
+  │ Every unconfirmed value is marked with the attribute                │
+  │   data-owner-confirm="…"                                            │
+  │ Search this file for "data-owner-confirm" to find them all:         │
+  │   • Wash & Fold price ($2.25/lb) and 10 lb minimum                  │
+  │   • Family Bag price ($39/bag) and 20 lb limit                      │
+  │   • "Free pickup & delivery" on both plans                          │
+  │   • FAQ "How much does it cost?" answer (repeats the prices)        │
+  │                                                                     │
+  │ Deliberately NOT included until confirmed separately:               │
+  │   • A ZIP-code checker (the ZIP list was never supplied by owner)   │
+  │   • Online booking (no booking backend exists yet)                  │
+  │   • Reviews, testimonials, customer counts, guarantees              │
+  └─────────────────────────────────────────────────────────────────────┘
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Sunday's Fold",
+  "description": "Laundry pickup and delivery; wash, dry and fold.",
+  "url": "https://sundaysfold.com",
+  "email": "ccc@sundaysfold.com",
+  "telephone": "+13234703462",
+  "areaServed": [
+    { "@type": "City", "name": "Gardena", "containedInPlace": { "@type": "State", "name": "California" } },
+    { "@type": "City", "name": "Lawndale", "containedInPlace": { "@type": "State", "name": "California" } },
+    { "@type": "City", "name": "Hawthorne", "containedInPlace": { "@type": "State", "name": "California" } },
+    { "@type": "City", "name": "Torrance", "containedInPlace": { "@type": "State", "name": "California" } },
+    { "@type": "City", "name": "Redondo Beach", "containedInPlace": { "@type": "State", "name": "California" } },
+    { "@type": "City", "name": "El Segundo", "containedInPlace": { "@type": "State", "name": "California" } }
+  ]
+}
+</script>
+<style>
+/* ==========================================================================
+   Fonts — self-hosted Inter (assets/fonts, SIL OFL)
+   ========================================================================== */
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/inter-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 700; font-display: swap; src: url("assets/fonts/inter-latin-700-normal.woff2") format("woff2"); }
+
+/* ==========================================================================
+   Tokens — from DESIGN.md (authoritative)
+   ========================================================================== */
+:root {
+  color-scheme: light;
+
+  --sunrise: #C4531F;
+  --sunrise-hover: #A94718;
+  --sunrise-20: #F3DDD2;
+  --sunrise-40: #E7BAA5;
+  --blue: #2F5D8A;
+  --blue-hover: #264D73;
+  --blue-20: #D5DFE8;
+  --blue-40: #ACBED0;
+  --ink: #1F2430;
+  --ink-80: #4C5059;
+  --muted: #6B6E76;           /* 5.1:1 on white, 4.8:1 on Cream — AA for body text */
+
+  --white: #FFFFFF;
+  --cream: #FFF6E5;
+  --paper: #F7F5F0;
+  --blush: #FAF1ED;
+
+  --hairline: rgba(31, 36, 48, 0.12);
+  --hairline-soft: rgba(31, 36, 48, 0.08);
+
+  --font: "Inter", -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-full: 9999px;
+
+  --shadow-card: 0 1px 3px rgba(31, 36, 48, 0.04);
+  --shadow-button: 0 4px 14px rgba(196, 83, 31, 0.18);
+  --shadow-panel: 0 24px 48px -16px rgba(31, 36, 48, 0.18);
+
+  --gutter: clamp(16px, 4vw, 32px);
+  --container: 1200px;
+  --section: clamp(64px, 9vw, 120px);
+  --header-h: 64px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+@supports (overflow: clip) { body { overflow-x: clip; } }
+
+img, svg { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+img { height: auto; }
+
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+a { color: var(--blue); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--blue-hover); }
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px; top: 12px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--r-xs);
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease-out);
+}
+.skip-link:focus { transform: translateY(0); color: var(--white); }
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
+
+/* ==========================================================================
+   Type
+   ========================================================================== */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 14px 5px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-full);
+  background: rgba(247, 245, 240, 0.8);
+  color: var(--ink-80);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+.eyebrow .dot {
+  position: relative;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--sunrise);
+  flex: none;
+}
+
+.h2 {
+  font-size: clamp(2rem, 1.35rem + 2.6vw, 3.25rem);
+  line-height: 1.06;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+}
+.lead {
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--ink-80);
+  max-width: 34em;
+}
+.section-head { display: grid; gap: 18px; justify-items: start; }
+.section-head--center { justify-items: center; text-align: center; margin-inline: auto; }
+.section-head--center .lead { margin-inline: auto; }
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: var(--r-xs);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font: 500 16px/1 var(--font);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-out), background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.btn:hover { color: var(--btn-fg); transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn svg { flex: none; }
+.btn .arrow { transition: transform 0.2s var(--ease-out); }
+.btn:hover .arrow { transform: translateX(3px); }
+
+.btn-primary { --btn-bg: var(--sunrise); --btn-fg: var(--white); box-shadow: var(--shadow-button); }
+.btn-primary:hover { --btn-bg: var(--sunrise-hover); box-shadow: 0 8px 20px -6px rgba(196, 83, 31, 0.4); }
+
+.btn-secondary { --btn-bg: var(--white); border-color: var(--hairline); box-shadow: var(--shadow-card); }
+.btn-secondary:hover { --btn-bg: var(--paper); }
+
+.btn-ghost { padding: 0 12px; }
+.btn-ghost:hover { --btn-bg: rgba(31, 36, 48, 0.05); }
+
+.btn-sm { min-height: 40px; padding: 0 16px; font-size: 15px; }
+.btn-block { width: 100%; }
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-xs);
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0;
+}
+.icon-btn:hover { background: var(--paper); }
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: rgba(255, 253, 249, 0.82);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.site-header.is-scrolled { border-bottom-color: var(--hairline-soft); background: rgba(255, 255, 255, 0.9); }
+.no-js .site-header { border-bottom-color: var(--hairline-soft); }
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: var(--header-h);
+}
+.brand { display: inline-flex; flex: none; border-radius: var(--r-xs); }
+.brand img { width: 128px; height: auto; }
+
+.primary-nav { margin-inline: auto; }
+.primary-nav ul { display: flex; gap: 4px; }
+.primary-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--r-xs);
+  color: var(--ink-80);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.primary-nav a:hover { color: var(--ink); background: rgba(31, 36, 48, 0.05); }
+
+.header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.primary-nav + .header-actions { margin-left: 0; }
+.header-phone { font-size: 15px; color: var(--ink); }
+.header-phone .label-short { display: none; }
+.menu-toggle { display: none; }
+
+/* Mobile menu panel (JS disclosure). Without JS, the nav wraps into a row. */
+.mobile-panel { display: none; }
+
+@media (max-width: 1023px) {
+  .header-phone .label-long { display: none; }
+  .header-phone .label-short { display: inline; }
+}
+
+@media (max-width: 899px) {
+  .primary-nav { display: none; }
+  .header-phone { display: none; }
+  .js .menu-toggle { display: inline-grid; }
+
+  /* No-JS fallback: show the four links in a scrollable row under the bar. */
+  .no-js .primary-nav {
+    display: block;
+    order: 10;
+    flex-basis: 100%;
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 0 var(--gutter) 8px;
+    overflow-x: auto;
+  }
+  .no-js .header-bar { flex-wrap: wrap; }
+  .no-js .primary-nav a { padding: 0 10px; }
+
+  .js .mobile-panel {
+    display: block;
+    position: absolute;
+    left: 0; right: 0;
+    top: 100%;
+    background: var(--white);
+    border-bottom: 1px solid var(--hairline-soft);
+    box-shadow: 0 24px 32px -24px rgba(31, 36, 48, 0.25);
+    padding: 8px var(--gutter) 24px;
+    transform-origin: top;
+    animation: panel-in 0.28s var(--ease-out);
+  }
+  .js .mobile-panel[hidden] { display: none; }
+  .mobile-panel ul { display: grid; }
+  .mobile-panel li + li { border-top: 1px solid var(--hairline-soft); }
+  .mobile-panel a:not(.btn) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 56px;
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .mobile-panel .panel-contact { display: grid; gap: 10px; margin-top: 16px; }
+}
+@media (max-width: 380px) {
+  .brand img { width: 112px; }
+  .header-actions .btn-sm { padding: 0 12px; }
+}
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin-top: calc(var(--header-h) * -1 - env(safe-area-inset-top, 0px));
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  background:
+    radial-gradient(120% 90% at 85% 20%, rgba(243, 221, 210, 0.95) 0%, rgba(243, 221, 210, 0) 55%),
+    radial-gradient(70% 60% at 100% 0%, rgba(231, 186, 165, 0.55) 0%, rgba(231, 186, 165, 0) 60%),
+    radial-gradient(80% 70% at 0% 100%, rgba(213, 223, 232, 0.75) 0%, rgba(213, 223, 232, 0) 60%),
+    radial-gradient(60% 60% at 10% 10%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(180deg, #FFFDF9 0%, var(--cream) 100%);
+}
+/* Drifting colour fields: large soft gradients, moved only with transform. */
+.hero-field {
+  position: absolute;
+  z-index: -2;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+.hero-field--sun {
+  width: 70vmax; height: 70vmax;
+  right: -22vmax; top: -26vmax;
+  background: radial-gradient(closest-side, rgba(196, 83, 31, 0.16), rgba(196, 83, 31, 0.06) 45%, rgba(196, 83, 31, 0) 100%);
+}
+.hero-field--blush {
+  width: 55vmax; height: 55vmax;
+  left: 18%; top: 30%;
+  background: radial-gradient(closest-side, rgba(250, 241, 237, 0.95), rgba(250, 241, 237, 0));
+}
+.hero-field--blue {
+  width: 60vmax; height: 60vmax;
+  left: -26vmax; bottom: -34vmax;
+  background: radial-gradient(closest-side, rgba(47, 93, 138, 0.13), rgba(47, 93, 138, 0.04) 50%, rgba(47, 93, 138, 0));
+}
+/* Paper grain: an inline SVG noise tile, a few percent opacity. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .14 0 0 0 0 .19 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-field--sun { animation: drift-a 26s ease-in-out infinite alternate; }
+  .hero-field--blush { animation: drift-b 32s ease-in-out infinite alternate; }
+  .hero-field--blue { animation: drift-c 28s ease-in-out infinite alternate; }
+}
+@keyframes drift-a { to { transform: translate3d(-4vmax, 3vmax, 0) scale(1.06); } }
+@keyframes drift-b { to { transform: translate3d(5vmax, -3vmax, 0) scale(0.94); } }
+@keyframes drift-c { to { transform: translate3d(4vmax, -2vmax, 0) scale(1.05); } }
+
+.hero-grid {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+  padding-block: clamp(40px, 7vw, 104px) clamp(56px, 8vw, 112px);
+}
+.hero-copy { display: grid; gap: 22px; justify-items: start; }
+
+.hero-title {
+  font-size: clamp(3rem, 1.9rem + 5vw, 5.5rem);
+  line-height: 0.98;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  margin-top: 6px;
+}
+.hero-title .line {
+  /* DESIGN.md §3: the one permitted gradient — Ink to Ink Secondary on the headline. */
+  background: linear-gradient(90deg, var(--ink) 0%, var(--ink) 40%, var(--ink-80) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em;
+}
+.hero-title .word-sunday {
+  position: relative;
+  display: inline-block;
+  /* background-clip:text doesn't reach into inline-blocks, so the word carries its own fill. */
+  background: linear-gradient(90deg, var(--ink), #2A2F3B);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-title .swash {
+  position: absolute;
+  left: -2%;
+  bottom: -0.1em;
+  width: 104%;
+  height: 0.2em;
+  overflow: visible;
+  pointer-events: none;
+}
+.hero-title .swash path {
+  fill: none;
+  stroke: var(--sunrise);
+  stroke-width: 5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero-title .swash path {
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+    animation: draw 1.1s 0.5s var(--ease-out) forwards;
+  }
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.hero-sub {
+  font-size: clamp(1.375rem, 1.05rem + 1.4vw, 2rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--ink-80);
+  max-width: 20em;
+}
+.hero-body {
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--ink-80);
+  max-width: 31em;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+.hero-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: var(--ink-80);
+}
+.hero-note a { color: var(--ink); font-weight: 500; }
+
+/* Logo composition */
+.hero-art {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 520px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+.hero-art .halo {
+  position: absolute;
+  inset: 2% 4%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95) 0%, rgba(255, 246, 229, 0.85) 45%, rgba(255, 246, 229, 0) 100%);
+}
+.hero-art .ring {
+  position: absolute;
+  left: 50%; top: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(196, 83, 31, 0.16);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.hero-art .ring--1 { width: 78%; aspect-ratio: 1; }
+.hero-art .ring--2 { width: 98%; aspect-ratio: 1; border-color: rgba(196, 83, 31, 0.09); border-style: dashed; }
+.hero-logo {
+  position: relative;
+  width: 78%;
+  height: auto;
+  transform: translateY(-5%);
+}
+
+.glass {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px 10px 10px;
+  border-radius: var(--r-md);
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
+  box-shadow: 0 12px 32px -14px rgba(31, 36, 48, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--ink-80);
+}
+.glass strong { display: block; color: var(--ink); font-size: 15px; font-weight: 600; }
+.glass .glass-icon {
+  display: grid;
+  place-items: center;
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  background: var(--white);
+  color: var(--sunrise);
+  flex: none;
+}
+.glass--a { left: -4%; top: 20%; }
+.glass--b { right: -2%; bottom: 3%; }
+@media (prefers-reduced-motion: no-preference) {
+  .glass--a { animation: bob 7s ease-in-out infinite; }
+  .glass--b { animation: bob 8s 1.2s ease-in-out infinite; }
+}
+@keyframes bob { 50% { transform: translateY(-6px); } }
+
+@media (min-width: 900px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: 32px; }
+  .hero-art { justify-self: end; }
+}
+@media (max-width: 899px) {
+  .hero-art { width: min(100%, 420px); }
+  .glass--a { left: 0; top: 14%; }
+  .glass--b { right: 0; bottom: 0; }
+}
+@media (max-width: 420px) {
+  .glass { padding: 8px 12px 8px 8px; font-size: 13px; }
+  .glass .glass-icon { width: 30px; height: 30px; }
+  .glass strong { font-size: 14px; }
+}
+
+/* ==========================================================================
+   Quick summary strip
+   ========================================================================== */
+.summary {
+  background: var(--white);
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.summary-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.summary-item {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 24px 16px 24px 0;
+}
+.summary-item:nth-child(n+3) { border-top: 1px solid var(--hairline-soft); }
+.summary-item:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--hairline-soft); }
+.summary-term {
+  font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.summary-desc { font-size: 15px; color: var(--muted); line-height: 1.4; }
+@media (min-width: 900px) {
+  .summary-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .summary-item { padding: 32px 24px; }
+  .summary-item:first-child { padding-left: 0; }
+  .summary-item:nth-child(n+3) { border-top: 0; }
+  .summary-item + .summary-item { border-left: 1px solid var(--hairline-soft); }
+  .summary-item:nth-child(even) { padding-left: 24px; }
+}
+
+/* ==========================================================================
+   Sections
+   ========================================================================== */
+.section { padding-block: var(--section); }
+.bg-paper { background: var(--paper); }
+.bg-cream { background: var(--cream); }
+.bg-blush { background: var(--blush); }
+.bg-white { background: var(--white); }
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-card);
+}
+.icon-tile {
+  display: grid;
+  place-items: center;
+  width: 48px; height: 48px;
+  border-radius: var(--r-md);
+  background: var(--paper);
+  color: var(--ink);
+  flex: none;
+}
+
+/* ---------- How it works ---------- */
+.how-grid { display: grid; gap: 48px; }
+.how-aside { display: grid; gap: 32px; align-content: start; }
+.how-art {
+  width: min(100%, 360px);
+  margin-inline: auto;
+}
+.steps { display: grid; gap: 16px; counter-reset: step; }
+.step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px 24px;
+  padding: clamp(24px, 3vw, 36px);
+}
+.step-num {
+  font-size: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  line-height: 0.9;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  color: var(--sunrise);
+  font-variant-numeric: tabular-nums;
+  min-width: 1.35em;
+}
+.step-body { display: grid; gap: 10px; }
+.step-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.step h3 { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.25; font-weight: 600; letter-spacing: -0.02em; }
+.step p { color: var(--ink-80); max-width: 36em; }
+@media (max-width: 639px) {
+  .step { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .step-num { font-size: 2.25rem; }
+  .how-art { width: min(100%, 280px); }
+}
+@media (min-width: 900px) {
+  .how-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(48px, 6vw, 96px); }
+  .how-aside { position: sticky; top: calc(var(--header-h) + 40px); }
+  .how-art { margin-inline: 0; width: min(100%, 380px); }
+}
+
+/* ---------- Pricing ---------- */
+.pricing-grid {
+  display: grid;
+  gap: 16px;
+  max-width: 920px;
+  margin: clamp(40px, 5vw, 56px) auto 0;
+}
+@media (min-width: 720px) { .pricing-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; } }
+.plan {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 20px;
+  padding: clamp(24px, 3vw, 36px);
+}
+.plan-head { display: flex; align-items: center; gap: 14px; }
+.plan-head .icon-tile { background: var(--cream); color: var(--sunrise); }
+.plan h3 { font-size: 1.375rem; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; }
+.plan-desc { color: var(--ink-80); font-size: 16px; }
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+.plan-price .amount {
+  font-size: clamp(2.75rem, 2.2rem + 2vw, 3.5rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.plan-price .unit { font-size: 17px; color: var(--muted); }
+.checks { display: grid; gap: 12px; align-content: start; }
+.checks li { display: flex; gap: 12px; align-items: flex-start; font-size: 16px; color: var(--ink-80); line-height: 1.45; }
+.checks svg { color: var(--blue); flex: none; margin-top: 1px; }
+.pricing-foot { text-align: center; margin-top: 28px; color: var(--ink-80); font-size: 16px; }
+
+/* ---------- What you can count on ---------- */
+.count-grid { display: grid; gap: 48px; align-items: center; }
+.count-art { width: min(100%, 520px); margin-inline: auto; }
+.commitments {
+  display: grid;
+  gap: 0;
+  margin-top: 40px;
+}
+.commitment {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  padding-block: 24px;
+  border-top: 1px solid var(--hairline);
+}
+.commitment h3 { font-size: 1.125rem; line-height: 1.35; font-weight: 600; margin-bottom: 4px; }
+.commitment p { color: var(--ink-80); font-size: 16px; }
+.commitment .icon-tile { background: var(--paper); }
+@media (min-width: 640px) {
+  .commitments { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+  .commitment { grid-template-columns: 1fr; gap: 14px; }
+}
+@media (min-width: 1000px) {
+  .count-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(48px, 6vw, 88px); }
+  .count-art { order: -1; margin-inline: 0; }
+}
+
+/* ---------- Service area ---------- */
+.area-grid { display: grid; gap: 40px; align-items: center; }
+.area-note { margin-top: 8px; color: var(--ink-80); font-size: 16px; }
+.cities {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.city {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 14px 18px;
+  background: var(--white);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-md);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--ink);
+  transition: transform 0.25s var(--ease-out), border-color 0.25s ease;
+}
+.city:hover { transform: translateY(-2px); border-color: rgba(196, 83, 31, 0.35); }
+.city svg { color: var(--sunrise); flex: none; }
+@media (min-width: 900px) {
+  .area-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(48px, 6vw, 96px); }
+  .cities { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- New to the South Bay ---------- */
+.new-art {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto clamp(32px, 5vw, 56px);
+}
+.new-grid {
+  display: grid;
+  gap: 20px;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-top: clamp(28px, 4vw, 40px);
+  border-top: 1px solid var(--hairline);
+}
+.new-grid p { font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); line-height: 1.65; color: var(--ink-80); max-width: 34em; }
+@media (min-width: 900px) {
+  .new-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px; }
+}
+
+/* ---------- FAQ (the one Sunday Blue section) ---------- */
+.faq { background: var(--blue); color: var(--white); }
+.faq .eyebrow {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--white);
+}
+.faq .eyebrow .dot { background: var(--cream); }
+.faq .h2 { color: var(--white); }
+.faq .lead { color: rgba(255, 255, 255, 0.9); }
+.faq a { color: var(--white); text-decoration-color: rgba(255, 255, 255, 0.6); }
+.faq a:hover { color: var(--white); text-decoration-color: var(--white); }
+.faq :focus-visible { outline-color: var(--white); }
+.faq-grid { display: grid; gap: 40px; }
+.faq-list { border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+.faq-item { border-top: 1px solid rgba(255, 255, 255, 0.2); }
+.faq-q {
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  padding-block: 22px 8px;
+}
+.faq-a { padding-bottom: 24px; color: rgba(255, 255, 255, 0.9); max-width: 38em; }
+
+/* Enhanced accordion (JS adds the button) */
+.faq-q button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  min-height: 44px;
+  cursor: pointer;
+  border-radius: var(--r-xs);
+}
+.faq-q button:focus-visible { outline: 2px solid var(--white); outline-offset: 4px; }
+.js .faq-q { padding-block: 14px; }
+.faq-icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  flex: none;
+  transition: transform 0.3s var(--ease-out), background-color 0.2s ease;
+}
+.faq-q button:hover .faq-icon { background: rgba(255, 255, 255, 0.1); }
+.faq-q button[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+.faq-a:not([hidden]) { animation: faq-in 0.3s var(--ease-out); }
+@keyframes faq-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (min-width: 900px) {
+  .faq-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(48px, 6vw, 96px); }
+  .faq-head { position: sticky; top: calc(var(--header-h) + 40px); align-self: start; }
+}
+
+/* ---------- Final CTA ---------- */
+.cta { background: var(--cream); border-top: 1px solid var(--hairline); }
+.cta-grid { display: grid; gap: 48px; align-items: center; }
+.cta-copy { display: grid; gap: 20px; justify-items: start; }
+.cta-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+.booking-note {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  max-width: 34em;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-md);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-80);
+}
+.booking-note svg { color: var(--blue); flex: none; margin-top: 2px; }
+.booking-note a { white-space: nowrap; }
+.cta-cities { font-size: 15px; color: var(--muted); }
+.cta-art { width: min(100%, 440px); margin-inline: auto; }
+@media (min-width: 900px) {
+  .cta-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(48px, 6vw, 96px); }
+  .cta-art { margin-inline: auto 0; }
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer {
+  background: var(--paper);
+  border-top: 1px solid var(--hairline);
+  padding-block: clamp(56px, 7vw, 80px) 32px;
+  padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px));
+  font-size: 15px;
+}
+.footer-grid { display: grid; gap: 40px; }
+.footer-brand { display: grid; gap: 16px; justify-items: start; max-width: 22em; }
+.footer-brand img { width: 150px; }
+.footer-brand p { color: var(--ink-80); font-size: 16px; }
+.footer-col h2 {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.footer-col ul { display: grid; gap: 4px; }
+.footer-col a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  color: var(--ink-80);
+  text-decoration: none;
+}
+.footer-col a:hover { color: var(--ink); text-decoration: underline; }
+.footer-col address { font-style: normal; }
+.footer-bottom {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline);
+  color: var(--muted);
+  font-size: 14px;
+}
+@media (min-width: 640px) {
+  .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer-brand { grid-column: 1 / -1; }
+}
+@media (min-width: 1000px) {
+  .footer-grid { grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); }
+  .footer-brand { grid-column: auto; }
+}
+
+/* ==========================================================================
+   Booking dialog (JS only; the same information is always in #book)
+   ========================================================================== */
+.book-dialog {
+  width: min(100% - 32px, 480px);
+  max-height: calc(100% - 32px);
+  padding: 0;
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-lg);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow-panel);
+}
+.book-dialog::backdrop { background: rgba(31, 36, 48, 0.42); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.book-dialog[open] { animation: dialog-in 0.3s var(--ease-out); }
+@keyframes dialog-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+.dialog-inner { display: grid; gap: 20px; padding: 28px; }
+.dialog-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.dialog-top h2 { font-size: 1.5rem; line-height: 1.2; font-weight: 600; letter-spacing: -0.025em; }
+.dialog-top p { margin-top: 6px; color: var(--muted); font-size: 15px; }
+.dialog-inner .booking-note { background: var(--paper); }
+.contact-options { display: grid; gap: 10px; }
+.contact-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 60px;
+  padding: 10px 16px 10px 10px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-md);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s var(--ease-out);
+}
+.contact-option:hover { color: var(--ink); background: var(--paper); transform: translateY(-1px); }
+.contact-option .icon-tile { width: 40px; height: 40px; border-radius: 10px; background: var(--cream); color: var(--sunrise); }
+.contact-option span { display: grid; line-height: 1.3; }
+.contact-option strong { font-weight: 600; font-size: 16px; }
+.contact-option small { color: var(--muted); font-size: 14px; }
+.contact-option .arrow { margin-left: auto; color: var(--muted); }
+.dialog-foot { font-size: 14px; color: var(--muted); }
+
+/* ==========================================================================
+   Reveal on scroll — progressive: only applied by JS to below-the-fold
+   elements, never with reduced motion. Transform + opacity only.
+   ========================================================================== */
+.reveal-armed { opacity: 0; transform: translateY(18px); }
+.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s var(--ease-out), transform 0.8s var(--ease-out);
+  transition-delay: var(--delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .btn:hover, .city:hover, .contact-option:hover { transform: none; }
+}
+
+@media print {
+  .site-header, .book-dialog, .hero-field { display: none !important; }
+  .reveal-armed { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body id="top">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ======================================================================
+     1. Header
+     ====================================================================== -->
+<header class="site-header" id="site-header">
+  <div class="container header-bar">
+    <a class="brand" href="#top">
+      <img src="assets/img/logo-horizontal-260.webp" srcset="assets/img/logo-horizontal-260.webp 260w, assets/img/logo-horizontal.webp 619w" sizes="128px" width="260" height="90" alt="Sunday's Fold, back to top">
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#service-area">Service area</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm header-phone" href="tel:+13234703462">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4.6c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="label-long">Call or text (323) 470-3462</span>
+        <span class="label-short">(323) 470-3462</span>
+      </a>
+      <a class="btn btn-primary btn-sm" href="#book" data-book>Book pickup</a>
+      <button class="icon-btn menu-toggle" type="button" id="menu-toggle" aria-expanded="false" aria-controls="mobile-panel">
+        <span class="visually-hidden">Menu</span>
+        <svg class="icon-open" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg class="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-panel" id="mobile-panel" hidden>
+    <nav aria-label="Mobile">
+      <ul>
+        <li><a href="#how-it-works">How it works <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a href="#pricing">Pricing <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a href="#service-area">Service area <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li><a href="#faq">FAQ <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+      </ul>
+    </nav>
+    <div class="panel-contact">
+      <a class="btn btn-secondary btn-block" href="tel:+13234703462">Call or text (323) 470-3462</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- ====================================================================
+       2. Hero
+       ==================================================================== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-field hero-field--sun" aria-hidden="true"></div>
+    <div class="hero-field hero-field--blush" aria-hidden="true"></div>
+    <div class="hero-field hero-field--blue" aria-hidden="true"></div>
+
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Now picking up in the South Bay</p>
+        <h1 class="hero-title" id="hero-title">
+          <span class="line">Take <span class="word-sunday">Sunday<svg class="swash" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 48 5, 120 3, 197 9"/></svg></span> back.</span>
+        </h1>
+        <p class="hero-sub">Laundry pickup &amp; delivery in the South&nbsp;Bay.</p>
+        <p class="hero-body">We pick up, wash, dry, fold, and bring it back — fresh and ready in 24 hours. No sorting, no folding, no lost Sunday.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#book" data-book>
+            Book pickup
+            <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-secondary" href="#pricing">See pricing</a>
+        </div>
+        <p class="hero-note">Questions first? Call or text <a href="tel:+13234703462">(323) 470-3462</a></p>
+      </div>
+
+      <div class="hero-art">
+        <span class="halo" aria-hidden="true"></span>
+        <span class="ring ring--1" aria-hidden="true"></span>
+        <span class="ring ring--2" aria-hidden="true"></span>
+        <img class="hero-logo" src="assets/img/logo-primary.webp" srcset="assets/img/logo-primary-480.webp 480w, assets/img/logo-primary.webp 690w" sizes="(max-width: 899px) 336px, 416px" width="690" height="552" alt="Sunday's Fold Laundry Service" fetchpriority="high" decoding="async">
+
+        <p class="glass glass--a">
+          <span class="glass-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <span><strong>24 hr turnaround</strong>Fresh &amp; folded</span>
+        </p>
+        <p class="glass glass--b">
+          <span class="glass-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V5.5a1.5 1.5 0 0 1 1.5-1.5h9A1.5 1.5 0 0 1 16 5.5V20M2.5 20h19M12.5 12.5h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M16 8h2.5a1.5 1.5 0 0 1 1.5 1.5V20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <span><strong>Door-to-door pickup</strong>6 South Bay cities</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       3. Quick service summary
+       ==================================================================== -->
+  <section class="summary" aria-label="Sunday's Fold at a glance">
+    <div class="container">
+      <ul class="summary-list">
+        <li class="summary-item"><span class="summary-term">24 hrs</span><span class="summary-desc">Fresh, folded, and back</span></li>
+        <li class="summary-item"><span class="summary-term">Door to door</span><span class="summary-desc">Pickup &amp; delivery</span></li>
+        <li class="summary-item"><span class="summary-term">6 cities</span><span class="summary-desc">Across the South Bay</span></li>
+        <li class="summary-item"><span class="summary-term">Wash, dry &amp; fold</span><span class="summary-desc">Handled for you</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       4. How it works
+       ==================================================================== -->
+  <section class="section bg-paper" id="how-it-works" aria-labelledby="how-title">
+    <div class="container how-grid">
+      <div class="how-aside">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span>How it works</p>
+          <h2 class="h2" id="how-title">Laundry day, off your list.</h2>
+          <p class="lead">Three steps, from request to your door.</p>
+        </div>
+        <img class="how-art" data-reveal src="assets/img/laundry-bag-480.webp" srcset="assets/img/laundry-bag-480.webp 480w, assets/img/laundry-bag.webp 848w" sizes="(max-width: 899px) 360px, 380px" width="480" height="473" alt="" loading="lazy" decoding="async">
+      </div>
+
+      <ol class="steps" data-reveal-group>
+        <li class="card step">
+          <span class="step-num" aria-hidden="true">01</span>
+          <div class="step-body">
+            <div class="step-head">
+              <h3><span class="visually-hidden">Step 1: </span>Request a pickup</h3>
+              <span class="icon-tile" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15.5" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 14.5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+            <p>Choose your preferred pickup details and send your request. We&rsquo;ll confirm the pickup with you.</p>
+          </div>
+        </li>
+        <li class="card step">
+          <span class="step-num" aria-hidden="true">02</span>
+          <div class="step-body">
+            <div class="step-head">
+              <h3><span class="visually-hidden">Step 2: </span>We wash, dry &amp; fold</h3>
+              <span class="icon-tile" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 7.5h16" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="14" r="4.25" stroke="currentColor" stroke-width="1.5"/><path d="M9.2 14.6c1-.9 1.9-.9 2.8 0s1.9.9 2.8 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M7 5.3h.01M9.5 5.3h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </span>
+            </div>
+            <p>Share your washing preferences when you request service, and we&rsquo;ll take it from there.</p>
+          </div>
+        </li>
+        <li class="card step">
+          <span class="step-num" aria-hidden="true">03</span>
+          <div class="step-body">
+            <div class="step-head">
+              <h3><span class="visually-hidden">Step 3: </span>Delivered back fresh</h3>
+              <span class="icon-tile" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4.5 16.5h15v2a1.5 1.5 0 0 1-1.5 1.5H6a1.5 1.5 0 0 1-1.5-1.5v-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M5.5 16.5v-3h13v3M6.5 13.5v-3h11v3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 3.5v4M10 5.5l2 2 2-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+            <p>Your laundry comes back fresh and folded within 24 hours of pickup.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       5. Services and pricing
+       --------------------------------------------------------------------
+       OWNER CONFIRMATION REQUIRED — LAUNCH-CHECKLIST.md A1, A3, A4.
+       None of these prices, the minimum, the bag limit, or "free pickup &
+       delivery" have been approved. To change a value, edit only the text
+       inside the element marked data-owner-confirm; the layout doesn't
+       depend on the length of any value. To add a line to a plan, copy one
+       <li> in its .checks list.
+       ==================================================================== -->
+  <section class="section bg-cream" id="pricing" aria-labelledby="pricing-title">
+    <div class="container">
+      <div class="section-head section-head--center" data-reveal>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Pricing</p>
+        <h2 class="h2" id="pricing-title">Simple pricing for every household.</h2>
+      </div>
+
+      <div class="pricing-grid" data-reveal-group>
+        <article class="card plan" aria-labelledby="plan-wf">
+          <div class="plan-head">
+            <span class="icon-tile" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 20h14l-1.6-10.2A2 2 0 0 0 15.4 8H8.6a2 2 0 0 0-2 1.8L5 20z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="5" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 14.5l1.5-2 1.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3 id="plan-wf">Wash &amp; Fold</h3>
+          </div>
+          <p class="plan-desc">Priced by the pound, for everyday loads.</p>
+          <p class="plan-price">
+            <span class="amount" data-owner-confirm="price">$2.25</span>
+            <span class="unit">/ lb</span>
+          </p>
+          <ul class="checks">
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Washed, dried &amp; folded</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-owner-confirm="minimum">10 lb minimum</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Back within 24 hours of pickup</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-owner-confirm="free-pickup-delivery">Free pickup &amp; delivery</span></li>
+          </ul>
+          <a class="btn btn-primary btn-block" href="#book" data-book>Book pickup<span class="visually-hidden">: Wash &amp; Fold</span></a>
+        </article>
+
+        <article class="card plan" aria-labelledby="plan-fb">
+          <div class="plan-head">
+            <span class="icon-tile" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 8.5h12l1 11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19.5l1-11z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 8.5V7a3 3 0 0 1 6 0v1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9 13.5c1.8 1.3 4.2 1.3 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <h3 id="plan-fb">Family Bag</h3>
+          </div>
+          <p class="plan-desc">One flat price for a full bag.</p>
+          <p class="plan-price">
+            <span class="amount" data-owner-confirm="price">$39</span>
+            <span class="unit">/ bag</span>
+          </p>
+          <ul class="checks">
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Washed, dried &amp; folded</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-owner-confirm="bag-limit">Up to 20 lbs</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Back within 24 hours of pickup</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-owner-confirm="free-pickup-delivery">Free pickup &amp; delivery</span></li>
+          </ul>
+          <a class="btn btn-primary btn-block" href="#book" data-book>Book pickup<span class="visually-hidden">: Family Bag</span></a>
+        </article>
+      </div>
+
+      <p class="pricing-foot" data-reveal>Questions about pricing? Call or text <a href="tel:+13234703462">(323) 470-3462</a>.</p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       6. What you can count on
+       ==================================================================== -->
+  <section class="section bg-white" id="why" aria-labelledby="why-title">
+    <div class="container count-grid">
+      <div>
+        <div class="section-head" data-reveal>
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Why Sunday&rsquo;s Fold</p>
+          <h2 class="h2" id="why-title">What you can count on</h2>
+        </div>
+        <ul class="commitments" data-reveal-group>
+          <li class="commitment">
+            <span class="icon-tile" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.5"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <div><h3>Back in 24 hours</h3><p>Fresh, folded, and back at your door within 24 hours of pickup.</p></div>
+          </li>
+          <li class="commitment">
+            <span class="icon-tile" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 21V4.5A1.5 1.5 0 0 1 6.5 3h8A1.5 1.5 0 0 1 16 4.5V21M3 21h18M13 12.5h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M17 13.5h3.5l-.6 5.5a1 1 0 0 1-1 1h-.3a1 1 0 0 1-1-1l-.6-5.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </span>
+            <div><h3>No need to be home</h3><p>Leave your bag by the door during your confirmed pickup window.</p></div>
+          </li>
+          <li class="commitment">
+            <span class="icon-tile" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 4V16h0a1.5 1.5 0 0 1-1.5-1.5v-9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 8.5h8M8 11.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <div><h3>Your preferences, noted</h3><p>Tell us how you like your laundry washed when you request a pickup.</p></div>
+          </li>
+          <li class="commitment">
+            <span class="icon-tile" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </span>
+            <div><h3>A real person to talk to</h3><p>Call or text <a href="tel:+13234703462">(323) 470-3462</a> with any question.</p></div>
+          </li>
+        </ul>
+      </div>
+      <img class="count-art" data-reveal src="assets/img/why-us-couple-640.webp" srcset="assets/img/why-us-couple-640.webp 640w, assets/img/why-us-couple.webp 1254w" sizes="(max-width: 999px) min(100vw - 32px, 520px), 460px" width="640" height="427" alt="" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       7. Service area
+       --------------------------------------------------------------------
+       No ZIP checker on purpose: the ZIP list in js/app.js was compiled
+       from city names, not supplied by the owner (LAUNCH-CHECKLIST.md A14).
+       If one is added later, keep the supported ZIPs in a single array so
+       they can be replaced without touching markup.
+       ==================================================================== -->
+  <section class="section bg-blush" id="service-area" aria-labelledby="area-title">
+    <div class="container area-grid">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Service area</p>
+        <h2 class="h2" id="area-title">Now picking up in the South&nbsp;Bay</h2>
+        <p class="lead">Serving six South Bay communities.</p>
+        <p class="area-note">Not sure we reach your street? Call or text <a href="tel:+13234703462">(323) 470-3462</a>.</p>
+      </div>
+      <ul class="cities" aria-label="Cities we serve" data-reveal-group>
+        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Gardena</li>
+        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Lawndale</li>
+        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Hawthorne</li>
+        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Torrance</li>
+        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Redondo Beach</li>
+        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>El Segundo</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       8. New to the South Bay — honest new-business statement, no reviews.
+       ==================================================================== -->
+  <section class="section bg-white" id="new" aria-labelledby="new-title">
+    <div class="container">
+      <img class="new-art" data-reveal src="assets/img/community-banner-800.webp" srcset="assets/img/community-banner-800.webp 800w, assets/img/community-banner.webp 1674w" sizes="(max-width: 1144px) calc(100vw - 32px), 1080px" width="800" height="313" alt="Illustration of neighbors out enjoying the day: a man in a wheelchair playing music, a woman walking her dogs, and a friend waving hello." loading="lazy" decoding="async">
+      <div class="new-grid" data-reveal>
+        <h2 class="h2" id="new-title">New to the South Bay</h2>
+        <p>Sunday&rsquo;s Fold is beginning service across six South Bay communities. We&rsquo;re building our reputation one carefully handled order at a time. Questions before booking? Call or text a real person at <a href="tel:+13234703462">(323) 470-3462</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       9. FAQ — answers are plain, visible HTML. JS upgrades each question
+       into an accordion button; without JS everything stays open.
+       ==================================================================== -->
+  <section class="section faq" id="faq" aria-labelledby="faq-title">
+    <div class="container faq-grid">
+      <div class="faq-head section-head" data-reveal>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>FAQ</p>
+        <h2 class="h2" id="faq-title">Questions, answered</h2>
+        <p class="lead">Still wondering about something? Call or text <a href="tel:+13234703462">(323) 470-3462</a>.</p>
+      </div>
+
+      <div class="faq-list" data-accordion data-reveal>
+        <div class="faq-item">
+          <h3 class="faq-q" id="faq-q1">Where do you pick up?</h3>
+          <div class="faq-a" id="faq-a1"><p>We pick up and deliver in Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach, and El Segundo.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q" id="faq-q2">How does pickup &amp; delivery work?</h3>
+          <div class="faq-a" id="faq-a2"><p>Request a pickup and we&rsquo;ll confirm it with you. Once confirmed, leave your bag by the door. You don&rsquo;t need to be home. We wash, dry, and fold your laundry and bring it back within 24 hours.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q" id="faq-q3">What&rsquo;s your turnaround time?</h3>
+          <div class="faq-a" id="faq-a3"><p>Your laundry comes back fresh and folded within 24 hours of pickup.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q" id="faq-q4">How much does it cost?</h3>
+          <!-- OWNER CONFIRMATION REQUIRED: repeats the unapproved development pricing (LAUNCH-CHECKLIST.md A1, A3). -->
+          <div class="faq-a" id="faq-a4" data-owner-confirm="pricing-answer"><p>Wash &amp; Fold is $2.25 per pound with a 10 lb minimum. A Family Bag is $39 for up to 20 lbs. See <a href="#pricing">Pricing</a> for what&rsquo;s included.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q" id="faq-q5">Do I need to be home?</h3>
+          <div class="faq-a" id="faq-a5"><p>No. Leave your bag by the door during your confirmed pickup time and we&rsquo;ll take it from there.</p></div>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-q" id="faq-q6">Who do I contact about my order?</h3>
+          <div class="faq-a" id="faq-a6"><p>Call or text a real person at <a href="tel:+13234703462">(323) 470-3462</a>, or email <a href="mailto:ccc@sundaysfold.com">ccc@sundaysfold.com</a>.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       10. Final call to action — also the no-JS target of every
+       "Book pickup" link (#book). No booking backend exists yet, so
+       nothing here collects or sends customer data.
+       ==================================================================== -->
+  <section class="section cta" id="book" aria-labelledby="cta-title">
+    <div class="container cta-grid">
+      <div class="cta-copy" data-reveal>
+        <h2 class="h2" id="cta-title">Ready to take Sunday back?</h2>
+        <p class="lead">Fresh, folded, and back in 24 hours.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="#book" data-book>
+            Book pickup
+            <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-secondary" href="tel:+13234703462">Call or text (323) 470-3462</a>
+        </div>
+        <p class="booking-note">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5.5M12 7.8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span>Online booking isn&rsquo;t open yet. To schedule a pickup now, call or text <a href="tel:+13234703462">(323) 470-3462</a> or email <a href="mailto:ccc@sundaysfold.com">ccc@sundaysfold.com</a>.</span>
+        </p>
+        <p class="cta-cities">Serving Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach &amp; El&nbsp;Segundo.</p>
+      </div>
+      <img class="cta-art" data-reveal src="assets/img/sundays-back-panels-560.webp" srcset="assets/img/sundays-back-panels-560.webp 560w, assets/img/sundays-back-panels.webp 1111w" sizes="(max-width: 899px) min(100vw - 32px, 440px), 440px" width="560" height="582" alt="Comic panels of people reaching for a clock, with the hours 8 HR, 7 HR and 10 HR, above the words Get your Sundays back." loading="lazy" decoding="async">
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================================================================
+     11. Footer
+     ====================================================================== -->
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top"><img src="assets/img/logo-horizontal-260.webp" srcset="assets/img/logo-horizontal-260.webp 260w, assets/img/logo-horizontal.webp 619w" sizes="150px" width="260" height="90" alt="Sunday's Fold, back to top" loading="lazy" decoding="async"></a>
+        <p>Your laundry, handled — so every day can feel like Sunday.</p>
+      </div>
+      <nav class="footer-col" aria-labelledby="f-explore">
+        <h2 id="f-explore">Explore</h2>
+        <ul>
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#service-area">Service area</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-col" aria-labelledby="f-policies">
+        <h2 id="f-policies">Policies</h2>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="service-policy.html">Service Policy</a></li>
+        </ul>
+      </nav>
+      <div class="footer-col">
+        <h2 id="f-contact">Contact</h2>
+        <address>
+          <ul>
+            <li><a href="mailto:ccc@sundaysfold.com">ccc@sundaysfold.com</a></li>
+            <li><a href="tel:+13234703462">(323) 470-3462</a></li>
+          </ul>
+        </address>
+      </div>
+    </div>
+    <p class="footer-bottom">&copy; 2026 Sunday&rsquo;s Fold &middot; sundaysfold.com</p>
+  </div>
+</footer>
+
+<!-- Booking dialog: opened by [data-book] links when JS is available.
+     Contains no form and sends nothing anywhere. -->
+<dialog class="book-dialog" id="book-dialog" aria-labelledby="book-dialog-title">
+  <div class="dialog-inner">
+    <div class="dialog-top">
+      <div>
+        <h2 id="book-dialog-title">Book a pickup</h2>
+        <p>Reach a real person — we&rsquo;ll confirm your pickup with you.</p>
+      </div>
+      <button class="icon-btn" type="button" data-close-dialog>
+        <span class="visually-hidden">Close</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p class="booking-note">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5.5M12 7.8h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span>Online booking isn&rsquo;t open yet. To schedule a pickup now, call or text (323) 470-3462 or email ccc@sundaysfold.com.</span>
+    </p>
+    <div class="contact-options">
+      <a class="contact-option" href="tel:+13234703462">
+        <span class="icon-tile" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.4 21 3 13.6 3 4.6c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        <span><strong>Call</strong><small>(323) 470-3462</small></span>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="contact-option" href="sms:+13234703462">
+        <span class="icon-tile" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4.5 4V16a1.5 1.5 0 0 1-1.5-1.5v-9z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 10h.01M12 10h.01M15.5 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+        <span><strong>Text</strong><small>(323) 470-3462</small></span>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="contact-option" href="mailto:ccc@sundaysfold.com">
+        <span class="icon-tile" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4 6.5l8 6 8-6" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+        <span><strong>Email</strong><small>ccc@sundaysfold.com</small></span>
+        <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+    <p class="dialog-foot">Serving Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach &amp; El Segundo.</p>
+  </div>
+</dialog>
+
+<script>
+/* Sunday's Fold — progressive enhancement only. The page is complete
+   without this script. No customer data is read, stored, logged, or sent. */
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function safely(fn) { try { fn(); } catch (e) { /* feature stays in its no-JS state */ } }
+
+  /* ---------- Header: hairline once the page scrolls ---------- */
+  safely(function () {
+    var header = document.getElementById("site-header");
+    var ticking = false;
+    function update() { ticking = false; header.classList.toggle("is-scrolled", window.scrollY > 8); }
+    update();
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+  });
+
+  /* ---------- Mobile menu (disclosure) ---------- */
+  safely(function () {
+    var toggle = document.getElementById("menu-toggle");
+    var panel = document.getElementById("mobile-panel");
+    var iconOpen = toggle.querySelector(".icon-open");
+    var iconClose = toggle.querySelector(".icon-close");
+
+    function set(open, returnFocus) {
+      panel.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+      // SVG elements have no .hidden property, so toggle the attribute.
+      iconOpen.toggleAttribute("hidden", open);
+      iconClose.toggleAttribute("hidden", !open);
+      if (!open && returnFocus) toggle.focus();
+    }
+
+    toggle.addEventListener("click", function () {
+      var open = toggle.getAttribute("aria-expanded") !== "true";
+      set(open);
+      if (open) { var first = panel.querySelector("a"); if (first) first.focus(); }
+    });
+    panel.addEventListener("click", function (e) {
+      if (e.target.closest("a")) set(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !panel.hidden) set(false, true);
+    });
+    document.addEventListener("click", function (e) {
+      if (!panel.hidden && !e.target.closest("#site-header")) set(false);
+    });
+    window.matchMedia("(min-width: 900px)").addEventListener("change", function (m) {
+      if (m.matches) set(false);
+    });
+  });
+
+  /* ---------- FAQ accordion ----------
+     Each heading gets a real <button> with aria-expanded / aria-controls.
+     The first answer stays open. */
+  safely(function () {
+    document.querySelectorAll("[data-accordion] .faq-item").forEach(function (item, i) {
+      var q = item.querySelector(".faq-q");
+      var a = item.querySelector(".faq-a");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("aria-controls", a.id);
+      btn.innerHTML = '<span></span><span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>';
+      btn.firstChild.textContent = q.textContent;
+      q.textContent = "";
+      q.appendChild(btn);
+      a.setAttribute("role", "region");
+      a.setAttribute("aria-labelledby", q.id);
+
+      function set(open) {
+        btn.setAttribute("aria-expanded", String(open));
+        a.hidden = !open;
+      }
+      set(i === 0);
+      btn.addEventListener("click", function () {
+        set(btn.getAttribute("aria-expanded") !== "true");
+      });
+    });
+  });
+
+  /* ---------- Booking dialog ----------
+     Book pickup links point at #book (always works). With <dialog>
+     support they open the same information in place. */
+  safely(function () {
+    var dialog = document.getElementById("book-dialog");
+    if (!dialog || typeof dialog.showModal !== "function") return;
+    var opener = null;
+
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest("[data-book]");
+      if (!link) return;
+      e.preventDefault();
+      opener = link;
+      dialog.showModal();
+    });
+    dialog.addEventListener("click", function (e) {
+      if (e.target === dialog || e.target.closest("[data-close-dialog]")) dialog.close();
+    });
+    dialog.addEventListener("close", function () {
+      if (opener) opener.focus();
+    });
+  });
+
+  /* ---------- Reveal on scroll ----------
+     Only elements that start below the first screen are ever hidden, and
+     only once the observer exists. Deep links and reduced motion skip it. */
+  safely(function () {
+    if (reduceMotion || !("IntersectionObserver" in window) || window.location.hash) return;
+
+    var fold = window.innerHeight * 0.95;
+    var targets = [];
+    document.querySelectorAll("[data-reveal]").forEach(function (el) { targets.push(el); });
+    document.querySelectorAll("[data-reveal-group]").forEach(function (group) {
+      Array.prototype.forEach.call(group.children, function (child, i) {
+        child.style.setProperty("--delay", (i * 90) + "ms");
+        targets.push(child);
+      });
+    });
+    targets = targets.filter(function (el) { return el.getBoundingClientRect().top > fold; });
+    if (!targets.length) return;
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        show(entry.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.01 });
+
+    function show(el) {
+      io.unobserve(el);
+      el.classList.add("reveal-in");
+      el.classList.remove("reveal-armed");
+      // Drop the reveal transition afterwards so hover effects keep their own timing.
+      window.setTimeout(function () { el.classList.remove("reveal-in"); el.style.removeProperty("--delay"); }, 1400);
+    }
+
+    // Fail-safe: anything already scrolled past (fast jumps, End key) shows.
+    function sweep() {
+      var line = window.innerHeight;
+      targets.forEach(function (el) {
+        if (el.classList.contains("reveal-armed") && el.getBoundingClientRect().top < line) show(el);
+      });
+    }
+    window.addEventListener("scroll", function () { window.requestAnimationFrame(sweep); }, { passive: true });
+    window.addEventListener("hashchange", function () { targets.forEach(show); });
+    window.addEventListener("beforeprint", function () { targets.forEach(show); });
+
+    targets.forEach(function (el) { el.classList.add("reveal-armed"); io.observe(el); });
+  });
+})();
+</script>
+</body>
+</html>
