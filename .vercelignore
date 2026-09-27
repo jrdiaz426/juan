@@ -13,6 +13,9 @@ js
 robots.txt
 sitemap.xml
 
+# Print and social files: not part of the website.
+marketing
+
 # Local Vercel link and credentials: never upload.
 .vercel
 .env*
