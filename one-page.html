@@ -775,18 +775,26 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 }
 
 /* ---------- Service area ---------- */
-.area-grid { display: grid; gap: 40px; align-items: center; }
+.area-grid {
+  display: grid;
+  gap: 32px;
+  grid-template-areas: "head" "map" "cities";
+}
+.area-grid > .section-head { grid-area: head; }
+.area-map { grid-area: map; }
+.cities { grid-area: cities; }
 .area-note { margin-top: 8px; color: var(--ink-80); font-size: 16px; }
 .cities {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+  align-content: start;
 }
 .city {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 64px;
+  min-height: 60px;
   padding: 14px 18px;
   background: var(--white);
   border: 1px solid var(--hairline-soft);
@@ -797,9 +805,109 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   color: var(--ink);
 }
 .city svg { color: var(--sunrise); flex: none; }
+/* With JS each tile becomes a toggle button for the map. */
+.city.has-button { padding: 0; }
+.city-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 60px;
+  padding: 14px 18px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.city-btn:hover { background: var(--paper); }
+.city-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.city:has(.city-btn[aria-pressed="true"]) { border-color: var(--sunrise); box-shadow: inset 0 0 0 1px var(--sunrise); }
+.city-btn[aria-pressed="true"] { background: var(--cream); }
+
+/* The map */
+.area-map {
+  margin: 0;
+  padding: 12px;
+  background: var(--white);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-card);
+}
+.area-map svg { width: 100%; height: auto; border-radius: 8px; font-family: var(--font); }
+.map-land { fill: #FBF8F2; }
+.map-ocean { fill: var(--blue-20); stroke: var(--blue-40); stroke-width: 1.5; }
+.map-waves path { fill: none; stroke: var(--blue-40); stroke-width: 2; stroke-linecap: round; }
+.map-ocean-label { fill: var(--blue); font-size: 17px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; }
+.map-road { fill: none; stroke: #D8D2C8; stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
+.map-shield rect { fill: var(--white); stroke: #C9C2B6; stroke-width: 1.5; }
+.map-shield text { fill: var(--ink-80); font-size: 13px; font-weight: 600; }
+.map-landmark rect { fill: var(--white); stroke: #C9C2B6; stroke-width: 1.5; }
+.map-landmark text { fill: var(--ink-80); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; }
+.map-place { fill: #8A8C92; font-size: 15px; font-style: italic; }
+.map-key path { fill: var(--ink-80); }
+.map-key text { fill: var(--ink-80); font-size: 13px; font-weight: 600; }
+.map-key line { stroke: var(--ink-80); stroke-width: 2; }
+
+.area-fill {
+  fill: rgba(196, 83, 31, 0.13);
+  stroke: rgba(196, 83, 31, 0.55);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+}
+.area {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.35s ease, transform 0.45s var(--ease-out);
+}
+.map-dot { fill: var(--ink); stroke: var(--white); stroke-width: 2.5; }
+.map-city text {
+  fill: var(--ink);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  paint-order: stroke;
+  stroke: #FBF8F2;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+.map-city { transition: opacity 0.35s ease; }
+.js .map-city, .js .area { cursor: pointer; }
+
+/* One city selected: it comes forward, the rest step back. */
+.area-map[data-selected] .area { opacity: 0.28; }
+.area-map[data-selected] .map-city { opacity: 0.45; }
+.area-map[data-selected] .area.is-selected { opacity: 1; transform: scale(1.04); }
+.area-map[data-selected] .map-city.is-selected { opacity: 1; }
+.area.is-selected .area-fill {
+  fill: rgba(196, 83, 31, 0.24);
+  stroke: var(--sunrise);
+  stroke-width: 2.5;
+  stroke-dasharray: none;
+}
+.map-city.is-selected .map-dot { fill: var(--sunrise); }
+
+/* SVG text scales with the map, so small screens get larger label sizes. */
+@media (max-width: 599px) {
+  .map-city text { font-size: 30px; stroke-width: 7px; }
+  .map-city[data-city="lawndale"] text { transform: translateX(-22px); }
+  .map-city[data-city="gardena"] text { transform: translateX(18px); }
+  .map-shield text, .map-landmark text, .map-key text { font-size: 20px; }
+  .map-place { font-size: 22px; }
+  .map-ocean-label { font-size: 22px; }
+}
+.area-map figcaption { display: grid; gap: 2px; padding: 12px 6px 2px; }
+.map-status { font-size: 16px; color: var(--ink); min-height: 1.6em; }
+.map-fine { font-size: 14px; color: var(--muted); }
+
 @media (min-width: 900px) {
-  .area-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(48px, 6vw, 96px); }
-  .cities { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .area-grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas: "head map" "cities map";
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(48px, 6vw, 88px);
+    row-gap: 32px;
+  }
 }
 
 /* ---------- New to the South Bay ---------- */
@@ -961,6 +1069,7 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
     scroll-behavior: auto !important;
   }
   .btn:hover { transform: none; }
+  .area-map[data-selected] .area.is-selected { transform: none; }
 }
 
 @media print {
@@ -1261,13 +1370,103 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
         <p class="lead">Serving six South Bay communities.</p>
         <p class="area-note">Not sure we reach your street? Call or text <a href="tel:+13234703462">(323) 470-3462</a>.</p>
       </div>
+      <figure class="area-map" id="area-map" data-reveal>
+        <svg viewBox="0 0 631 638" role="img" aria-labelledby="map-title map-desc" focusable="false">
+          <title id="map-title">Sunday&rsquo;s Fold service area map</title>
+          <desc id="map-desc">A simplified map of the South Bay with a circle around the general area of each city we serve: El Segundo, Hawthorne, Lawndale, Gardena, Redondo Beach and Torrance. LAX is to the north and the Pacific Ocean to the west.</desc>
+          <defs>
+            <clipPath id="land-clip"><polygon points="74.6,0 94.7,69 119.1,138 146.4,207 162.2,244.9 193.7,320.8 208.1,376.1 221,420.9 225.3,472.7 215.3,514.1 189.4,534.8 160.7,552 137.8,586.5 120.5,638 631,638 631,0"/></clipPath>
+          </defs>
+          <rect class="map-land" width="631" height="638"/>
+          <polygon class="map-ocean" points="0,0 74.6,0 94.7,69 119.1,138 146.4,207 162.2,244.9 193.7,320.8 208.1,376.1 221,420.9 225.3,472.7 215.3,514.1 189.4,534.8 160.7,552 137.8,586.5 120.5,638 0,638"/>
+          <g class="map-waves" aria-hidden="true">
+            <path d="M22 120c8-6 16-6 24 0s16 6 24 0"/>
+            <path d="M40 250c8-6 16-6 24 0s16 6 24 0"/>
+            <path d="M18 420c8-6 16-6 24 0s16 6 24 0"/>
+            <path d="M52 560c8-6 16-6 24 0s16 6 24 0"/>
+          </g>
+          <text class="map-ocean-label" x="84" y="440" transform="rotate(-72 84 440)">Pacific Ocean</text>
+
+          <!-- Freeways: approximate, for orientation only -->
+          <polyline class="map-road" points="258.3,0 281.3,86.2 298.5,172.5 324.3,241.5 373.1,293.3 442,327.7 510.9,355.4 631,384"/>
+          <polyline class="map-road" points="542.4,0 542.4,189.7 542.4,327.7 542.4,534.8 533.8,638"/>
+          <g class="map-shield"><rect x="520" y="560" width="44" height="24" rx="6"/><text x="542" y="577" text-anchor="middle">110</text></g>
+          <g class="map-shield"><rect x="566" y="355" width="44" height="24" rx="6"/><text x="588" y="372" text-anchor="middle">405</text></g>
+
+          <g class="map-landmark">
+            <rect x="160" y="20" width="44" height="22" rx="4"/>
+            <text x="182" y="36" text-anchor="middle">LAX</text>
+          </g>
+          <text class="map-place" x="250" y="600" text-anchor="middle">Palos Verdes</text>
+
+          <g class="areas" clip-path="url(#land-clip)">
+          <g class="area" data-city="torrance">
+            <circle class="area-fill" cx="371.4" cy="411.2" r="114.9"/>
+          </g>
+          <g class="area" data-city="redondo-beach">
+            <circle class="area-fill" cx="258.3" cy="348.4" r="63.2"/>
+          </g>
+          <g class="area" data-city="gardena">
+            <circle class="area-fill" cx="462.1" cy="230.1" r="61.1"/>
+          </g>
+          <g class="area" data-city="hawthorne">
+            <circle class="area-fill" cx="336.9" cy="133.2" r="62.7"/>
+          </g>
+          <g class="area" data-city="el-segundo">
+            <circle class="area-fill" cx="153.5" cy="123.5" r="59.6"/>
+          </g>
+          <g class="area" data-city="lawndale">
+            <circle class="area-fill" cx="336.9" cy="233.9" r="35.9"/>
+          </g>
+          </g>
+          <g class="map-labels">
+        <g class="map-city" data-city="torrance">
+          <circle class="map-dot" cx="371.4" cy="411.2" r="5"/>
+          <text x="371.4" y="441.2" text-anchor="middle">Torrance</text>
+        </g>
+        <g class="map-city" data-city="redondo-beach">
+          <circle class="map-dot" cx="258.3" cy="348.4" r="5"/>
+          <text x="258.3" y="378.4" text-anchor="middle">Redondo Beach</text>
+        </g>
+        <g class="map-city" data-city="gardena">
+          <circle class="map-dot" cx="462.1" cy="230.1" r="5"/>
+          <text x="462.1" y="260.1" text-anchor="middle">Gardena</text>
+        </g>
+        <g class="map-city" data-city="hawthorne">
+          <circle class="map-dot" cx="336.9" cy="133.2" r="5"/>
+          <text x="336.9" y="163.2" text-anchor="middle">Hawthorne</text>
+        </g>
+        <g class="map-city" data-city="el-segundo">
+          <circle class="map-dot" cx="153.5" cy="123.5" r="5"/>
+          <text x="153.5" y="153.5" text-anchor="middle">El Segundo</text>
+        </g>
+        <g class="map-city" data-city="lawndale">
+          <circle class="map-dot" cx="336.9" cy="233.9" r="5"/>
+          <text x="336.9" y="263.9" text-anchor="middle">Lawndale</text>
+        </g>
+          </g>
+
+          <g class="map-key" aria-hidden="true">
+            <path d="M606 18l8 20-8-5-8 5z"/>
+            <text x="606" y="56" text-anchor="middle">N</text>
+            <line x1="556" y1="620" x2="606" y2="620"/>
+            <line x1="556" y1="614" x2="556" y2="626"/>
+            <line x1="606" y1="614" x2="606" y2="626"/>
+            <text x="581" y="608" text-anchor="middle">1 mi</text>
+          </g>
+        </svg>
+        <figcaption>
+          <p class="map-status" id="map-status" aria-live="polite">Circles show the general area of each city we serve.</p>
+          <p class="map-fine">Approximate, not exact city limits.</p>
+        </figcaption>
+      </figure>
       <ul class="cities" aria-label="Cities we serve" data-reveal-group>
-        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Gardena</li>
-        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Lawndale</li>
-        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Hawthorne</li>
-        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Torrance</li>
-        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>Redondo Beach</li>
-        <li class="city"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg>El Segundo</li>
+        <li class="city" data-city="gardena"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg><span>Gardena</span></li>
+        <li class="city" data-city="lawndale"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg><span>Lawndale</span></li>
+        <li class="city" data-city="hawthorne"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg><span>Hawthorne</span></li>
+        <li class="city" data-city="torrance"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg><span>Torrance</span></li>
+        <li class="city" data-city="redondo-beach"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg><span>Redondo Beach</span></li>
+        <li class="city" data-city="el-segundo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" stroke="currentColor" stroke-width="1.6"/></svg><span>El Segundo</span></li>
       </ul>
     </div>
   </section>
@@ -1474,6 +1673,59 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
       btn.addEventListener("click", function () {
         set(btn.getAttribute("aria-expanded") !== "true");
       });
+    });
+  });
+
+  /* ---------- Service area map ----------
+     Without JS the map shows every city's area. Here each city tile
+     becomes a toggle button, and tapping a city on the map does the same.
+     The tiles are the keyboard / screen reader controls; the map is a
+     pointer shortcut. */
+  safely(function () {
+    var map = document.getElementById("area-map");
+    var status = document.getElementById("map-status");
+    if (!map) return;
+    var defaultText = "Tap a city to see the general area we pick up in.";
+    status.textContent = defaultText;
+    var buttons = {};
+
+    document.querySelectorAll(".cities .city[data-city]").forEach(function (li) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "city-btn";
+      btn.setAttribute("aria-pressed", "false");
+      btn.setAttribute("aria-controls", "area-map");
+      while (li.firstChild) btn.appendChild(li.firstChild);
+      li.appendChild(btn);
+      li.classList.add("has-button");
+      buttons[li.getAttribute("data-city")] = btn;
+      btn.addEventListener("click", function () { select(li.getAttribute("data-city")); });
+    });
+
+    function select(id) {
+      var current = map.getAttribute("data-selected");
+      var next = current === id ? null : id;
+      if (next) map.setAttribute("data-selected", next); else map.removeAttribute("data-selected");
+      map.querySelectorAll("[data-city]").forEach(function (el) {
+        el.classList.toggle("is-selected", el.getAttribute("data-city") === next);
+      });
+      Object.keys(buttons).forEach(function (key) {
+        buttons[key].setAttribute("aria-pressed", String(key === next));
+      });
+      if (next) {
+        var name = buttons[next].textContent.trim();
+        status.innerHTML = "";
+        var strong = document.createElement("strong");
+        strong.textContent = name;
+        status.appendChild(strong);
+        status.appendChild(document.createTextNode(": we pick up across the general " + name + " area."));
+      } else {
+        status.textContent = defaultText;
+      }
+    }
+
+    map.querySelectorAll(".area[data-city], .map-city[data-city]").forEach(function (el) {
+      el.addEventListener("click", function () { select(el.getAttribute("data-city")); });
     });
   });
 
