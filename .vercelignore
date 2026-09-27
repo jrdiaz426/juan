@@ -1,0 +1,14 @@
+# Internal notes: never publish.
+DESIGN.md
+LAUNCH-CHECKLIST.md
+.github
+
+# The earlier multi-page site. On Vercel the homepage is one-page.html
+# (see vercel.json), and these old files point at the GitHub Pages URL.
+index.html
+contact.html
+404.html
+css
+js
+robots.txt
+sitemap.xml

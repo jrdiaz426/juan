@@ -761,6 +761,46 @@ a[href^="tel:"] { white-space: nowrap; }
   .how-art { margin-inline: 0; width: min(100%, 380px); }
 }
 
+/* ---------- Who it's for ---------- */
+.who-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: clamp(40px, 5vw, 56px);
+}
+@media (min-width: 720px) { .who-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; } }
+.who-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--white);
+  border: 1px solid var(--hairline-soft);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.who-panel { display: grid; place-items: center; padding: 24px 24px 16px; border-bottom: 1px solid var(--hairline-soft); }
+.who-panel--cream { background: var(--cream); }
+.who-panel--sky { background: #EEF3F8; }
+.who-panel--blush { background: var(--blush); }
+.who-panel--paper { background: var(--paper); }
+.who-art { width: min(100%, 340px); height: auto; }
+.who-art .ln { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.who-art .ln-thick { stroke-width: 3.5; }
+.who-art .f-white { fill: var(--white); }
+.who-art .f-cream { fill: var(--cream); }
+.who-art .f-blush { fill: var(--sunrise-20); }
+.who-art .f-sun40 { fill: var(--sunrise-40); }
+.who-art .f-sun60 { fill: #DC9879; }
+.who-art .f-sun { fill: #F2B33D; }
+.who-art .f-blue20 { fill: var(--blue-20); }
+.who-art .f-blue40 { fill: var(--blue-40); }
+.who-art .f-blue60 { fill: #829EB9; }
+.who-art .f-ink { fill: var(--ink); }
+.who-num { fill: var(--white); font: 700 26px/1 var(--font); }
+.who-body { display: grid; gap: 12px; align-content: start; padding: clamp(24px, 3vw, 32px); }
+.who-body h3 { font-size: 1.375rem; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; }
+.who-line { font-size: 1.0625rem; line-height: 1.5; color: var(--blue); font-weight: 500; }
+.who-body .checks { margin-top: 6px; }
+
 /* ---------- Pricing ---------- */
 .pricing-grid {
   display: grid;
@@ -1304,6 +1344,134 @@ a[href^="tel:"] { white-space: nowrap; }
           <a class="text-link" href="#pricing">See pricing</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       4b. Who it's for — original illustrations (inline SVG), no photos.
+       Every bullet repeats a confirmed promise from elsewhere on the page;
+       the one-liners are not customer quotes.
+       ==================================================================== -->
+  <section class="section bg-white" id="who" aria-labelledby="who-title">
+    <div class="container">
+      <div class="section-head section-head--center" data-reveal>
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Who it&rsquo;s for</p>
+        <h2 class="h2" id="who-title">Laundry help for every kind of week.</h2>
+        <p class="lead">Whatever your week looks like, we&rsquo;ll handle the laundry.</p>
+      </div>
+      <ul class="who-grid" data-reveal-group>
+        <li class="who-card">
+          <div class="who-panel who-panel--cream">
+          <svg class="who-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+            <line class="ln" x1="16" y1="204" x2="304" y2="204"/>
+            <path class="ln f-blue40" d="M34 150h14v30a10 10 0 0 0 10 10h12a7 7 0 0 1 0 14H52a18 18 0 0 1-18-18z"/>
+            <path class="ln" d="M34 160h14"/>
+            <rect class="ln f-blue40" x="98" y="86" width="72" height="16" rx="4"/>
+            <rect class="ln f-blush" x="94" y="100" width="80" height="16" rx="4"/>
+            <path class="ln f-sun60" d="M180 58l20-9c6 7 18 7 24 0l20 9 12 22-13 7-4-7v42h-54V80l-4 7-13-7z"/>
+            <text class="who-num" x="212" y="110" text-anchor="middle">7</text>
+            <path class="ln f-cream" d="M74 124h172l-14 72a8 8 0 0 1-8 8H96a8 8 0 0 1-8-8z"/>
+            <rect class="ln f-sun40" x="64" y="114" width="192" height="14" rx="7"/>
+            <path class="ln" d="M84 150h152M88 174h144"/>
+            <circle class="ln f-white" cx="276" cy="184" r="20"/>
+            <path class="f-ink" d="M276 176l7 5-3 8h-8l-3-8z"/>
+            <path class="ln" d="M276 164v12M290 178l-7 3M286 199l-6-10M266 199l6-10M262 178l7 3"/>
+          </svg>
+          </div>
+          <div class="who-body">
+            <h3>Families</h3>
+            <p class="who-line">Clean uniforms for the morning game, without the late-night load.</p>
+            <ul class="checks">
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Wash, dry &amp; fold for the whole household</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Tell us everyone&rsquo;s washing preferences when you request a pickup</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Back at your door within 24 hours of pickup</li>
+            </ul>
+          </div>
+        </li>
+        <li class="who-card">
+          <div class="who-panel who-panel--sky">
+          <svg class="who-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+            <line class="ln" x1="16" y1="204" x2="304" y2="204"/>
+            <path class="ln" d="M120 44a8 8 0 1 1 8 8v8M84 76l44-16 44 16"/>
+            <path class="ln f-blue20" d="M92 72l20-8 16 12 16-12 20 8 22 30-15 9-7-11v106H92V100l-7 11-15-9z"/>
+            <path class="ln" d="M112 64l16 22 16-22M128 86v118"/>
+            <circle class="f-ink" cx="128" cy="108" r="2.6"/><circle class="f-ink" cx="128" cy="132" r="2.6"/><circle class="f-ink" cx="128" cy="156" r="2.6"/><circle class="f-ink" cx="128" cy="180" r="2.6"/>
+            <rect class="ln" x="140" y="110" width="16" height="16" rx="2"/>
+            <circle class="ln f-cream" cx="252" cy="74" r="38"/>
+            <path class="ln" d="M252 42v6M252 100v6M220 74h6M278 74h6"/>
+            <path class="ln ln-thick" d="M252 74V54M252 74l16 9"/>
+            <circle class="f-sun" cx="252" cy="74" r="4"/>
+            <rect class="ln f-blush" x="220" y="160" width="66" height="16" rx="4"/>
+            <rect class="ln f-sun60" x="214" y="176" width="78" height="18" rx="4"/>
+            <line class="ln" x1="204" y1="194" x2="302" y2="194"/>
+          </svg>
+          </div>
+          <div class="who-body">
+            <h3>Busy professionals</h3>
+            <p class="who-line">Your workweek laundry, handled while you&rsquo;re at work.</p>
+            <ul class="checks">
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>No need to be home: leave your bag by the door</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Fresh and folded within 24 hours of pickup</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Call or text a real person with any question</li>
+            </ul>
+          </div>
+        </li>
+        <li class="who-card">
+          <div class="who-panel who-panel--blush">
+          <svg class="who-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+            <line class="ln" x1="16" y1="204" x2="304" y2="204"/>
+            <rect class="ln f-blue20" x="44" y="146" width="72" height="16" rx="4"/>
+            <rect class="ln f-blue40" x="38" y="162" width="84" height="18" rx="4"/>
+            <rect class="ln f-blue60" x="32" y="180" width="96" height="22" rx="5"/>
+            <rect class="ln f-blush" x="204" y="146" width="72" height="16" rx="4"/>
+            <rect class="ln f-sun40" x="198" y="162" width="84" height="18" rx="4"/>
+            <rect class="ln f-sun60" x="192" y="180" width="96" height="22" rx="5"/>
+            <path class="ln f-white" d="M134 150h32v46a6 6 0 0 1-6 6h-20a6 6 0 0 1-6-6z"/>
+            <path class="ln" d="M166 160h5a8 8 0 0 1 0 16h-5"/>
+            <path class="ln f-blush" d="M178 158h28v40a6 6 0 0 1-6 6h-16a6 6 0 0 1-6-6z"/>
+            <path class="ln" d="M150 138c-6-8 6-12 0-20M192 146c-6-8 6-12 0-20"/>
+            <path class="ln f-sun60" d="M171 112c-8-10-22-2-14 8l14 12 14-12c8-10-6-18-14-8z"/>
+          </svg>
+          </div>
+          <div class="who-body">
+            <h3>Couples</h3>
+            <p class="who-line">Two schedules, one less chore on the list.</p>
+            <ul class="checks">
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Send one pickup request for both of you</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Your preferences, noted</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Laundry day, off your list</li>
+            </ul>
+          </div>
+        </li>
+        <li class="who-card">
+          <div class="who-panel who-panel--paper">
+          <svg class="who-art" viewBox="0 0 320 220" aria-hidden="true" focusable="false">
+            <rect class="f-cream" x="70" y="20" width="180" height="184"/>
+            <line class="ln" x1="16" y1="204" x2="304" y2="204"/>
+            <rect class="ln f-white" x="104" y="30" width="112" height="174" rx="3"/>
+            <rect class="ln f-blue60" x="114" y="40" width="92" height="164" rx="3"/>
+            <rect class="ln f-blue20" x="126" y="54" width="68" height="36" rx="3"/>
+            <path class="ln" d="M160 54v36"/>
+            <circle class="ln f-sun" cx="194" cy="130" r="5"/>
+            <rect class="ln f-sun60" x="96" y="200" width="128" height="8" rx="3"/>
+            <path class="ln f-sun40" d="M218 140c12-10 38-10 50 0l8 48a14 14 0 0 1-14 16h-38a14 14 0 0 1-14-16z"/>
+            <path class="ln" d="M226 140c6 8 30 8 36 0M232 134c4-10 20-10 24 0"/>
+            <rect class="ln f-white" x="232" y="164" width="24" height="18" rx="3"/>
+            <path class="ln f-sun60" d="M34 176h40l-5 28H39z"/>
+            <path class="ln f-blue40" d="M54 176c-2-20-16-26-20-40 14 2 22 16 20 40zM54 176c2-24 14-34 24-42 2 16-10 30-24 42z"/>
+          </svg>
+          </div>
+          <div class="who-body">
+            <h3>Households &amp; roommates</h3>
+            <p class="who-line">No more hauling bags to the laundromat or waiting on a shared machine.</p>
+            <ul class="checks">
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Door-to-door pickup and delivery</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Serving Gardena, Lawndale, Hawthorne, Torrance, Redondo Beach &amp; El Segundo</li>
+              <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Wash, dry &amp; fold, handled for you</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
   </section>
 
