@@ -120,7 +120,8 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--header-h) + 16px);
+  /* Sections carry their own top padding, so land them right under the header. */
+  scroll-padding-top: var(--header-h);
 }
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
@@ -152,7 +153,9 @@ p { text-wrap: pretty; }
 
 a { color: var(--blue); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 a:hover { color: var(--blue-hover); }
+a[href^="tel:"] { white-space: nowrap; }
 
+[data-nav-target]:focus:not(:focus-visible) { outline: none; }
 :focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 3px;
@@ -190,7 +193,6 @@ a:hover { color: var(--blue-hover); }
   padding-inline: var(--gutter);
 }
 
-section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 
 /* ==========================================================================
    Type
@@ -328,6 +330,20 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 .primary-nav a:hover { color: var(--ink); background: rgba(31, 36, 48, 0.05); }
+/* Current section: an underline that grows from the centre (transform only). */
+.primary-nav a { position: relative; }
+.primary-nav a::after {
+  content: "";
+  position: absolute;
+  left: 14px; right: 14px; bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--sunrise);
+  transform: scaleX(0);
+  transition: transform 0.3s var(--ease-out);
+}
+.primary-nav a[aria-current="true"] { color: var(--ink); }
+.primary-nav a[aria-current="true"]::after { transform: scaleX(1); }
 
 .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .primary-nav + .header-actions { margin-left: 0; }
@@ -386,6 +402,17 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
     text-decoration: none;
   }
   .mobile-panel .panel-contact { display: grid; gap: 10px; margin-top: 16px; }
+  .mobile-panel a[aria-current="true"] { color: var(--sunrise-hover); }
+  .mobile-panel a[aria-current="true"]::before {
+    content: "";
+    width: 6px; height: 6px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: var(--sunrise);
+    order: -1;
+  }
+  .mobile-panel a[aria-current="true"] { justify-content: flex-start; }
+  .mobile-panel a[aria-current="true"] svg { margin-left: auto; }
 }
 @media (max-width: 380px) {
   .brand img { width: 112px; }
@@ -913,14 +940,11 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
 /* ---------- New to the South Bay ---------- */
 .new-art {
   width: 100%;
-  max-width: 1080px;
-  margin: 0 auto clamp(32px, 5vw, 56px);
+  margin: 0 0 clamp(32px, 5vw, 56px);
 }
 .new-grid {
   display: grid;
   gap: 20px;
-  max-width: 1080px;
-  margin-inline: auto;
   padding-top: clamp(28px, 4vw, 40px);
   border-top: 1px solid var(--hairline);
 }
@@ -1476,7 +1500,7 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
        ==================================================================== -->
   <section class="section bg-white" id="new" aria-labelledby="new-title">
     <div class="container">
-      <img class="new-art" data-reveal src="assets/img/community-banner-800.webp" srcset="assets/img/community-banner-800.webp 800w, assets/img/community-banner.webp 1674w" sizes="(max-width: 1144px) calc(100vw - 32px), 1080px" width="800" height="313" alt="Illustration of neighbors out enjoying the day: a man in a wheelchair playing music, a woman walking her dogs, and a friend waving hello." loading="lazy" decoding="async">
+      <img class="new-art" data-reveal src="assets/img/community-banner-800.webp" srcset="assets/img/community-banner-800.webp 800w, assets/img/community-banner.webp 1674w" sizes="(max-width: 1264px) calc(100vw - 32px), 1200px" width="800" height="313" alt="Illustration of neighbors out enjoying the day: a man in a wheelchair playing music, a woman walking her dogs, and a friend waving hello." loading="lazy" decoding="async">
       <div class="new-grid" data-reveal>
         <h2 class="h2" id="new-title">New to the South Bay</h2>
         <p>Sunday&rsquo;s Fold is beginning service across six South Bay communities. We&rsquo;re building our reputation one carefully handled order at a time. Questions before booking? Call or text a real person at <a href="tel:+13234703462">(323) 470-3462</a>.</p>
@@ -1611,6 +1635,57 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 8px); }
     window.addEventListener("scroll", function () {
       if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
     }, { passive: true });
+  });
+
+  /* ---------- Where am I: current section in the nav ----------
+     The last nav section whose top has passed the header is current.
+     Sections not in the nav (e.g. "Why Sunday's Fold") keep the previous
+     nav section current until the next one starts. */
+  safely(function () {
+    var ids = ["how-it-works", "pricing", "service-area", "faq"];
+    var sections = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    var links = document.querySelectorAll('.primary-nav a[href^="#"], .mobile-panel a[href^="#"]');
+    var final = document.getElementById("book");
+    var current = null;
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      var line = 96 + window.innerHeight * 0.25;
+      var next = null;
+      sections.forEach(function (sec) { if (sec.getBoundingClientRect().top <= line) next = sec.id; });
+      // Past the FAQ (final CTA and footer): nothing in the nav is current.
+      if (final && final.getBoundingClientRect().top <= line) next = null;
+      if (next === current) return;
+      current = next;
+      links.forEach(function (a) {
+        if (a.getAttribute("href") === "#" + current) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+    }
+    update();
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener("resize", update);
+  });
+
+  /* ---------- In-page links: move focus to the section's heading ----------
+     The browser scrolls as usual; focus then lands on the heading so
+     keyboard and screen reader users arrive where the page did. */
+  safely(function () {
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a || e.defaultPrevented) return;
+      var id = a.getAttribute("href").slice(1);
+      if (!id || id === "top" || id === "main") return;
+      var section = document.getElementById(id);
+      if (!section) return;
+      var heading = section.querySelector("h2, h1") || section;
+      heading.setAttribute("tabindex", "-1");
+      heading.setAttribute("data-nav-target", "");
+      window.setTimeout(function () { heading.focus({ preventScroll: true }); }, 0);
+    });
   });
 
   /* ---------- Mobile menu (disclosure) ---------- */
