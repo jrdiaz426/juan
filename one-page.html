@@ -730,6 +730,31 @@ a[href^="tel:"] { white-space: nowrap; }
   .step-num { font-size: 2.25rem; }
   .how-art { width: min(100%, 280px); }
 }
+.how-next {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: 20px 24px;
+  border: 1px dashed var(--hairline);
+  border-radius: var(--r-md);
+}
+.how-next p { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
+.how-next-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration-color: var(--sunrise);
+  text-decoration-thickness: 2px;
+}
+.text-link:hover { color: var(--sunrise-hover); }
+@media (min-width: 900px) {
+  .how-next { grid-column: 2; margin-top: -32px; }
+}
 @media (min-width: 900px) {
   .how-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(48px, 6vw, 96px); }
   .how-aside { position: sticky; top: calc(var(--header-h) + 40px); }
@@ -1269,6 +1294,16 @@ a[href^="tel:"] { white-space: nowrap; }
           </div>
         </li>
       </ol>
+      <div class="how-next" data-reveal>
+        <p>Ready when you are.</p>
+        <div class="how-next-actions">
+          <a class="btn btn-primary" href="book.html">
+            Book pickup
+            <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="text-link" href="#pricing">See pricing</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1760,7 +1795,7 @@ a[href^="tel:"] { white-space: nowrap; }
     var map = document.getElementById("area-map");
     var status = document.getElementById("map-status");
     if (!map) return;
-    var defaultText = "Tap a city to see the general area we pick up in.";
+    var defaultText = "Select a city to see the general area we pick up in.";
     status.textContent = defaultText;
     var buttons = {};
 

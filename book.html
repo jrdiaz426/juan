@@ -294,6 +294,7 @@ select.input {
 .error-summary ul { margin-top: 6px; display: grid; gap: 2px; }
 .error-summary a { color: var(--error); font-weight: 500; }
 
+.form-note { margin-bottom: 24px; font-size: 15px; color: var(--muted); }
 .submit-row { display: grid; gap: 12px; margin-top: 32px; }
 .submit-note { font-size: 14px; color: var(--muted); text-align: center; }
 
@@ -413,6 +414,8 @@ select.input {
           <input type="text" id="f-gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
         </div>
 
+        <p class="form-note">All fields are required unless marked optional.</p>
+
         <fieldset class="form-section">
           <legend>About you</legend>
           <div class="fields">
@@ -503,14 +506,9 @@ select.input {
           <legend>Your preferences</legend>
           <div class="fields">
             <div class="field">
-              <label class="label" for="f-prefs">How do you like your laundry washed? <span class="optional">(optional)</span></label>
-              <textarea class="input" id="f-prefs" name="preferences" rows="3" aria-describedby="f-prefs-hint"></textarea>
-              <p class="hint" id="f-prefs-hint">Detergent, water temperature, drying, how you like things folded.</p>
-            </div>
-            <div class="field">
-              <label class="label" for="f-notes">Anything else? <span class="optional">(optional)</span></label>
-              <textarea class="input" id="f-notes" name="notes" rows="3" aria-describedby="f-notes-hint"></textarea>
-              <p class="hint" id="f-notes-hint">Where you&rsquo;ll leave the bag, parking, or questions for us.</p>
+              <label class="label" for="f-prefs">Washing preferences and notes <span class="optional">(optional)</span></label>
+              <textarea class="input" id="f-prefs" name="preferences" rows="4" aria-describedby="f-prefs-hint"></textarea>
+              <p class="hint" id="f-prefs-hint">Detergent, water temperature, folding, where you&rsquo;ll leave the bag, or questions for us.</p>
             </div>
           </div>
         </fieldset>
@@ -691,7 +689,7 @@ select.input {
   var LABELS = {
     name: "Name", phone: "Phone", email: "Email", address: "Address", city: "City",
     zip: "ZIP code", preferred_date: "Preferred date", preferred_time: "Time of day",
-    service: "Service", bags: "Bags", preferences: "Preferences", notes: "Notes"
+    service: "Service", bags: "Bags", preferences: "Preferences and notes"
   };
 
   function renderSummary(data) {
