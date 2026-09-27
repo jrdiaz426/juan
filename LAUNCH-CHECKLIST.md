@@ -141,6 +141,8 @@ The booking form's consent checkbox links to Terms and Service Policy. **Don't e
 
 ### B1. Booking form endpoint
 
+**Live on Vercel (2026-09-27):** https://sundays-fold.vercel.app (project `sundays-fold`, deployed with the Vercel CLI; `vercel.json` serves `one-page.html` at `/`). A labelled test booking sent from the live page was accepted by Formspree (HTTP 200, ok: true); confirm it arrived at ccc@sundaysfold.com.
+
 **Done for `book.html` (2026-09-26):** the new booking page posts to Formspree form `mnpngwel`, which emails ccc@sundaysfold.com. Still to do: send one real test from the deployed page, and check in the Formspree dashboard that reCAPTCHA / domain restrictions allow AJAX submissions. The steps below apply to the older `contact.html` forms.
 
 1. Choose a form service that accepts `POST` and emails you, e.g. Formspree (`https://formspree.io/f/XXXXXXXX`), or a booking platform's form endpoint.

@@ -12,3 +12,7 @@ css
 js
 robots.txt
 sitemap.xml
+
+# Local Vercel link and credentials: never upload.
+.vercel
+.env*
